@@ -8,8 +8,8 @@ namespace FarmAdvisor.Models.Models
         public string City { get; set; }
         public string Country { get; set; }
 
-        public List<FarmFieldModel> FarmFeilds { get; set; }
-        public Guid UserId { get; set; }
+       // public List<FarmFieldModel> FarmFeilds { get; set; }
+       // public Guid UserId { get; set; }
         
 
     }
