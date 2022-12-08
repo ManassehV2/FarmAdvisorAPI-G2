@@ -1,7 +1,7 @@
 {
-    "connectionStrings": {
-        "DefaultConnection": "Data Source=LAPTOP-7S5M2IVT;Initial Catalog=FarmAdvisorDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
-    },
+  "connectionStrings": {
+    "DefaultConnection": "Data Source=LAPTOP-7S5M2IVT;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+  },
     "IsEncrypted": false,
     "Values": {
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",

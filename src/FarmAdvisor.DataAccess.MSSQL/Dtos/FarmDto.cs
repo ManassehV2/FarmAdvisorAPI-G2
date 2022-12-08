@@ -5,7 +5,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
     public class FarmDto
     {
         [Key]
-       
         public Guid FarmId { get; set; }
         public string? Name { get; set; }
         public string? Postcode{ get; set; }

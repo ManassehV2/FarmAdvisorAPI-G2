@@ -29,6 +29,6 @@
     <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FarmAdvisor.DataAccess.MSSQL\FarmAdvisor.DataAccess.MSSQL.csproj" />
+    <ProjectReference Include="..\FarmAdvisor.Business\FarmAdvisor.Business.csproj" />
     </ItemGroup>
 </Project>
