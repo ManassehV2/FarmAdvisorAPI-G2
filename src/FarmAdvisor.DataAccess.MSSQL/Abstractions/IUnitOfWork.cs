@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FarmAdvisor.DataAccess.MSSQL.Abstractions
 {
-    public interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork
     {
         IFarmRepository FarmRepository { get; }
         IUserRepository UserRepository { get; }
@@ -14,7 +14,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Abstractions
         IFarmFeildRepository FarmFeildRepository { get; }
 
         int SaveChanges();
-        new void Dispose();
+        void Dispose();
 
         
         
