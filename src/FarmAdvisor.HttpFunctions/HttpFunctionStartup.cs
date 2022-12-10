@@ -14,7 +14,8 @@ namespace FarmAdvisor.HttpFunctions
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient<FetchingWeatherForecast>();
+            services.AddHttpClient<IWeatherRemoteRepository>();
+            services.AddScoped<IWeatherRemoteRepository, WeatherRemoteRepositoryImpl>();
 
         }
 

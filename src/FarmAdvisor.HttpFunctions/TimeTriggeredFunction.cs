@@ -9,9 +9,9 @@ namespace FarmAdvisor.HttpFunctions;
 
 public class TimeTriggeredFunction
 {
-    public FetchingWeatherForecast _weatherForecast;
+    public readonly IWeatherRemoteRepository _weatherForecast;
 
-    public TimeTriggeredFunction(FetchingWeatherForecast weatherForecast)
+    public TimeTriggeredFunction(IWeatherRemoteRepository weatherForecast)
     {
         _weatherForecast = weatherForecast;
     }
