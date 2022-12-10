@@ -17,6 +17,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void AddUser_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var user = DtoGenerator.GenerateUserDto();
             await UnitOfWork.UserRepository.AddAsync(user);
             var result = await UnitOfWork.UserRepository.GetByIdAsync(user.UserId);
@@ -29,6 +30,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void GetUserBuId_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var user = DtoGenerator.GenerateUserDto();
             await UnitOfWork.UserRepository.AddAsync(user);
             var result = await UnitOfWork.UserRepository.GetByIdAsync(user.UserId);
@@ -44,6 +46,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         public async void GetAllUsers_Success_Test()
         {
             // clean database
+            Utils.clearDatabase(UnitOfWork);
             var currentUsers = await UnitOfWork.UserRepository.GetAllAsync();
             Utils.DeleteAll<UserDto>(currentUsers, UnitOfWork.UserRepository);
 
@@ -66,6 +69,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         public async void UpdateUser_Success_Test()
         {
 
+            Utils.clearDatabase(UnitOfWork);
             var user = DtoGenerator.GenerateUserDto();
             await UnitOfWork.UserRepository.AddAsync(user);
             user.Name = "Updated Name";
@@ -81,6 +85,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void DeleteUser_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var user = DtoGenerator.GenerateUserDto();
             await UnitOfWork.UserRepository.AddAsync(user);
             var resultBeforeDelete = await UnitOfWork.UserRepository.GetByIdAsync(user.UserId);
@@ -97,6 +102,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void Relation_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var user = DtoGenerator.GenerateUserDto();
             var farm = DtoGenerator.GenerateFarmDto();
 

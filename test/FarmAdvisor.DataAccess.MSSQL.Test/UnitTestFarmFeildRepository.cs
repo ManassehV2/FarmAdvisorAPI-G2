@@ -2,6 +2,7 @@ using FarmAdvisor.DataAccess.MSSQL.Abstractions;
 using FarmAdvisor.DataAccess.MSSQL.Dtos;
 
 
+
 namespace FarmAdvisor.DataAccess.MSSQL.Test
 {
     public class UnitTestFarmFeildRepository
@@ -13,10 +14,12 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             UnitOfWork = UnitOfWorkGenerator.Generate();
         }
 
+        
 
         [Fact]
         public async void AddFarmFeild_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var farm = DtoGenerator.GenerateFarmDto();
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
 
@@ -25,7 +28,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
 
             var farmResult = await UnitOfWork.FarmRepository.GetByIdAsync(farm.FarmId);
             var farmFeildResult = await UnitOfWork.FarmFeildRepository.GetByIdAsync(farmFeild.FieldId);
-            Utils.DeleteAll<FarmDto>(new List<FarmDto> { farmResult! }, UnitOfWork.FarmRepository);
 
             UnitOfWork.Dispose();
 
@@ -40,10 +42,11 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void GetFarmFeildById_Success_Test()
         {
+
+            Utils.clearDatabase(UnitOfWork);
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
             await UnitOfWork.FarmFeildRepository.AddAsync(farmFeild);
             var result = await UnitOfWork.FarmFeildRepository.GetByIdAsync(farmFeild.FieldId);
-            Utils.DeleteAll<FarmFieldDto>(new List<FarmFieldDto> { farmFeild }, UnitOfWork.FarmFeildRepository);
             UnitOfWork.Dispose();
             
             Assert.Equal(farmFeild, result);
@@ -53,9 +56,8 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void GetAllFarmFeilds_Success_Test()
         {
-            // clean database
-            var currentFarms = await UnitOfWork.FarmRepository.GetAllAsync();
-            Utils.DeleteAll<FarmDto>(currentFarms, UnitOfWork.FarmRepository);
+            Utils.clearDatabase(UnitOfWork);
+
 
             // populate database
             int numberOfFarmFeilds = 10;
@@ -74,7 +76,9 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
 
             // clean database
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
+            var feildsAfterDelete = await UnitOfWork.FarmFeildRepository.GetAllAsync();
             UnitOfWork.Dispose();
+            Assert.Empty(feildsAfterDelete);
             Assert.Equal(numberOfFarmFeilds, result.Count);
             
         }
@@ -83,6 +87,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void UpdateFarmFeild_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var farm = DtoGenerator.GenerateFarmDto();
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
             farm.FarmFeilds!.Add(farmFeild);
@@ -105,6 +110,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void DeleteFarmFeild_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var farm = DtoGenerator.GenerateFarmDto();
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
             farm.FarmFeilds!.Add(farmFeild);
@@ -128,7 +134,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void Relation_Success_Test()
         {
-            
+            Utils.clearDatabase(UnitOfWork);
             var farm = DtoGenerator.GenerateFarmDto();
             var farmField = DtoGenerator.GenerateFarmFieldDto();
 

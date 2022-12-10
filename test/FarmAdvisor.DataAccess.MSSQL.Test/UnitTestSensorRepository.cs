@@ -17,6 +17,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void AddSensor_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var farm = DtoGenerator.GenerateFarmDto();
             var sensor = DtoGenerator.GenerateSensorDto();
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
@@ -41,7 +42,8 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
 
         [Fact]
         public async void GetSensorById_Success_Test()
-        {   
+        {
+            Utils.clearDatabase(UnitOfWork);
             var farm = DtoGenerator.GenerateFarmDto();
             var sensor = DtoGenerator.GenerateSensorDto();
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
@@ -67,6 +69,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         public async void GetAllSensors_Success_Test()
         {
             // clean database
+            Utils.clearDatabase(UnitOfWork);
             var currentSensors = await UnitOfWork.SensorRepository.GetAllAsync();
             Assert.Empty(currentSensors);
 
@@ -99,6 +102,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void UpdateSensor_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
 
             var farm = DtoGenerator.GenerateFarmDto();
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
@@ -127,6 +131,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void DeleteSensor_Success_Test()
         {
+            Utils.clearDatabase(UnitOfWork);
             var farm = DtoGenerator.GenerateFarmDto();
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
             var sensor = DtoGenerator.GenerateSensorDto();
@@ -158,7 +163,8 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         [Fact]
         public async void Relation_Success_Test()
         {
-            
+
+            Utils.clearDatabase(UnitOfWork);
             var farm = DtoGenerator.GenerateFarmDto();
             var farmField = DtoGenerator.GenerateFarmFieldDto();
             var sensor = DtoGenerator.GenerateSensorDto();
