@@ -14,6 +14,8 @@ namespace FarmAdvisor.DataAccess.MSSQL
         DbSet<FarmFieldDto> FarmFeilds { get; set; }
         DbSet<SensorDto> Sensors { get; set; }
         DbSet<UserDto> Users { get; set; }
+        DbSet<NotificationDto> Notifications { get; set; }
+        // DbSet<SensorResetDateDto> SensorResetDates { get; set; }
     }
        
 }
