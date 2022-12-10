@@ -10,7 +10,7 @@ namespace FarmAdvisor.HttpFunctions
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-
+            
         }
 
 

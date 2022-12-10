@@ -1,39 +1,38 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{728F6C8B-32B3-4F41-935B-267EC394B73C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor_AppFunctions", "src\FarmAdvisor.AppFunctions\FarmAdvisor_AppFunctions.csproj", "{3FF27366-DAEB-4123-8652-B7A586F7C43E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor_AppFunctions", "src\FarmAdvisor.AppFunctions\FarmAdvisor_AppFunctions.csproj", "{3FF27366-DAEB-4123-8652-B7A586F7C43E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor.Business", "src\FarmAdvisor.Business\FarmAdvisor.Business.csproj", "{5BBBA914-4EED-4B38-B87C-96B96A4F618D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.Business", "src\FarmAdvisor.Business\FarmAdvisor.Business.csproj", "{5BBBA914-4EED-4B38-B87C-96B96A4F618D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor.Commons", "src\FarmAdvisor.Commons\FarmAdvisor.Commons.csproj", "{AD53634E-F1BE-4757-A25E-58D80DE99C7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.Commons", "src\FarmAdvisor.Commons\FarmAdvisor.Commons.csproj", "{AD53634E-F1BE-4757-A25E-58D80DE99C7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor.DataAccess.AzureTableStorage", "src\FarmAdvisor.DataAccess.AzureTableStorage\FarmAdvisor.DataAccess.AzureTableStorage.csproj", "{E22EBAB1-F083-45B0-9915-5C55BC739E29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.DataAccess.AzureTableStorage", "src\FarmAdvisor.DataAccess.AzureTableStorage\FarmAdvisor.DataAccess.AzureTableStorage.csproj", "{E22EBAB1-F083-45B0-9915-5C55BC739E29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor.DataAccess.MSSQL", "src\FarmAdvisor.DataAccess.MSSQL\FarmAdvisor.DataAccess.MSSQL.csproj", "{1F582710-4975-44A8-BC10-B14E8DADD990}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.DataAccess.MSSQL", "src\FarmAdvisor.DataAccess.MSSQL\FarmAdvisor.DataAccess.MSSQL.csproj", "{1F582710-4975-44A8-BC10-B14E8DADD990}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor.Models", "src\FarmAdvisor.Models\FarmAdvisor.Models.csproj", "{8DB018F3-26E1-486E-A196-7FE8D6C9850D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.Models", "src\FarmAdvisor.Models\FarmAdvisor.Models.csproj", "{8DB018F3-26E1-486E-A196-7FE8D6C9850D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor.Services.WeatherApi", "src\FarmAdvisor.Services.WeatherApi\FarmAdvisor.Services.WeatherApi.csproj", "{83F390F7-829B-48AD-8391-92E8058DE584}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.Services.WeatherApi", "src\FarmAdvisor.Services.WeatherApi\FarmAdvisor.Services.WeatherApi.csproj", "{83F390F7-829B-48AD-8391-92E8058DE584}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{52915C80-FBDC-49CB-BB3D-0582CC6F2421}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor.Common.Test", "test\FarmAdvisor.Common.Test\FarmAdvisor.Common.Test.csproj", "{041C03D5-5325-4674-B163-39934EBF09EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.Common.Test", "test\FarmAdvisor.Common.Test\FarmAdvisor.Common.Test.csproj", "{041C03D5-5325-4674-B163-39934EBF09EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor.Function.Test", "test\FarmAdvisor.Function.Test\FarmAdvisor.Function.Test.csproj", "{6CAA3BD3-C377-4642-8787-026D416EB1CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.Function.Test", "test\FarmAdvisor.Function.Test\FarmAdvisor.Function.Test.csproj", "{6CAA3BD3-C377-4642-8787-026D416EB1CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmAdvisor_HttpFunctions", "src\FarmAdvisor.HttpFunctions\FarmAdvisor_HttpFunctions.csproj", "{FE7C2370-24C4-4F54-8FB6-78C8EA746EF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor_HttpFunctions", "src\FarmAdvisor.HttpFunctions\FarmAdvisor_HttpFunctions.csproj", "{FE7C2370-24C4-4F54-8FB6-78C8EA746EF6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmAdvisor.DataAccess.MSSQL.Test", "test\FarmAdvisor.DataAccess.MSSQL.Test\FarmAdvisor.DataAccess.MSSQL.Test.csproj", "{1FCA4251-5E29-4D51-8613-09664B714CB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3FF27366-DAEB-4123-8652-B7A586F7C43E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -76,6 +75,13 @@ Global
 		{FE7C2370-24C4-4F54-8FB6-78C8EA746EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE7C2370-24C4-4F54-8FB6-78C8EA746EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE7C2370-24C4-4F54-8FB6-78C8EA746EF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FCA4251-5E29-4D51-8613-09664B714CB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FCA4251-5E29-4D51-8613-09664B714CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FCA4251-5E29-4D51-8613-09664B714CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FCA4251-5E29-4D51-8613-09664B714CB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3FF27366-DAEB-4123-8652-B7A586F7C43E} = {728F6C8B-32B3-4F41-935B-267EC394B73C}
@@ -88,5 +94,9 @@ Global
 		{041C03D5-5325-4674-B163-39934EBF09EE} = {52915C80-FBDC-49CB-BB3D-0582CC6F2421}
 		{6CAA3BD3-C377-4642-8787-026D416EB1CE} = {52915C80-FBDC-49CB-BB3D-0582CC6F2421}
 		{FE7C2370-24C4-4F54-8FB6-78C8EA746EF6} = {728F6C8B-32B3-4F41-935B-267EC394B73C}
+		{1FCA4251-5E29-4D51-8613-09664B714CB2} = {52915C80-FBDC-49CB-BB3D-0582CC6F2421}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {225D6A73-5C07-43F5-AF7F-9A3B8BD60E09}
 	EndGlobalSection
 EndGlobal
