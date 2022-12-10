@@ -14,6 +14,10 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
         public ISensorRepository SensorRepository { get; private set; } 
 
         public IFarmFeildRepository FarmFeildRepository { get; private set; } 
+
+        public INotificationRepository NotificationRepository { get; private set; }
+
+        public ISensorResetDateRepository SensorResetDateRepository { get; private set; }
         
          public   UnitOfWorkImpl (FarmAdvisorDbContext context)
         {
@@ -22,11 +26,11 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
             UserRepository =  new   UserRepositoryImpl (context);
             SensorRepository =  new   SensorRepositoryImpl (context);
             FarmFeildRepository =  new   FarmFeildRepositoryImpl (context);
+            NotificationRepository =  new   NotificationRepositoryImpl (context);
+            SensorResetDateRepository =  new   SensorResetDateRepositoryImpl (context);
         }
 
         
-
-       
 
         public void DisposeContext ()
         {

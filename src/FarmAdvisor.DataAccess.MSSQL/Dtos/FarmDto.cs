@@ -18,6 +18,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
          [ForeignKey("User")]
          public Guid UserId { get; set; }
          public UserDto? User { get; set; }
+         public List<NotificationDto>? Notifications { get; set; }
         
     }
     

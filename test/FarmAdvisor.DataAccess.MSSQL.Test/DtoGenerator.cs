@@ -34,7 +34,8 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Test
                 Country = String.Format("country{0}", number),
                 FarmFeilds = new List<FarmFieldDto>(),
                 UserId = Guid.NewGuid(),
-                User = null
+                User = null,
+                Notifications = new List<NotificationDto>()
             };
 
             return Farm;
@@ -74,13 +75,45 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Test
                 Lat = 0,
                 State = State.OK,
                 FeildId = Guid.NewGuid(),
-                Feild = null
+                Feild = null,
+                ResetDate = null
+
 
                 
             };
 
             return Sensor;
         }
+
+        public static SensorResetDateDto GenerateSensorResetDateDto(string number = "1")
+        {
+            
+            var SensorResetDate = new SensorResetDateDto
+            {
+                ResetDateId = Guid.NewGuid(),
+                TimeStamp = DateTime.Now,
+                SensorId = Guid.NewGuid(),
+                Sensor = null
+            };
+
+            return SensorResetDate;
+        }
+
+        public static NotificationDto GenerateNotificationDto(string number = "1")
+        {
+            var Notification = new NotificationDto
+            {
+                NotificationId = Guid.NewGuid(),
+                Title = String.Format("Test Notification {0}", number),
+                Message = String.Format("Test Notification {0}", number),
+                Status = Status.UNREAD,
+                FarmId = Guid.NewGuid(),
+                Farm = null
+            };
+        
+            return Notification;
+        }
+        
 
 
        

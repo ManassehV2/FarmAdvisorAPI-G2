@@ -21,6 +21,10 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             Utils.DeleteAll<FarmFieldDto>(currentFarmFeilds, UnitOfWork.FarmFeildRepository);
             var currentSensors = await UnitOfWork.SensorRepository.GetAllAsync();
             Utils.DeleteAll<SensorDto>(currentSensors, UnitOfWork.SensorRepository);
+            var currentNotifications = await UnitOfWork.NotificationRepository.GetAllAsync();
+            Utils.DeleteAll<NotificationDto>(currentNotifications, UnitOfWork.NotificationRepository);
+            var currentSensorResetDates = await UnitOfWork.SensorResetDateRepository.GetAllAsync();
+            Utils.DeleteAll<SensorResetDateDto>(currentSensorResetDates, UnitOfWork.SensorResetDateRepository);
         }
     }
 }

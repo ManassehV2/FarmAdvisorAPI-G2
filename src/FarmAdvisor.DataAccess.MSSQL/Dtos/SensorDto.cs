@@ -25,10 +25,11 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
         public double Lat { get; set; }
         public State State { get; set; }
 
-        
+        // Navigation Properties        
         [ForeignKey("Feild")]
         public Guid FeildId { get; set; }
         public FarmFieldDto? Feild { get; set; }
+        public SensorResetDateDto? ResetDate { get; set; }
 
     }
 }

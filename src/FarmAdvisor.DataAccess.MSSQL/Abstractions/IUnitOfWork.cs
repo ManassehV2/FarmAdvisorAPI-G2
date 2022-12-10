@@ -12,6 +12,8 @@ namespace FarmAdvisor.DataAccess.MSSQL.Abstractions
         IUserRepository UserRepository { get; }
         ISensorRepository SensorRepository { get; }
         IFarmFeildRepository FarmFeildRepository { get; }
+        INotificationRepository NotificationRepository { get; }
+        ISensorResetDateRepository SensorResetDateRepository { get; }
 
         int SaveChanges();
         void DisposeContext();
