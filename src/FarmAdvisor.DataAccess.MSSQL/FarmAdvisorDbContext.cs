@@ -18,18 +18,16 @@ namespace FarmAdvisor.DataAccess.MSSQL
             
         }
         
-
         public DbSet<FarmDto> Farms { get; set; }
         public DbSet<FarmFieldDto> FarmFeilds { get; set; }
         public DbSet<SensorDto> Sensors { get; set; }
         public DbSet<UserDto> Users { get; set; }
         public DbSet<NotificationDto> Notifications { get; set; }
-        // public DbSet<SensorResetDateDto> SensorResetDates { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
 
            
                 

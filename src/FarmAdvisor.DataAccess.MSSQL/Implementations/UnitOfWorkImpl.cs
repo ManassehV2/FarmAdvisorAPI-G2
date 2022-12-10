@@ -3,7 +3,7 @@ using FarmAdvisor.DataAccess.MSSQL.Abstractions;
 
 namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
 {
-     public   class   UnitOfWorkImpl  : IUnitOfWork
+     public   class   UnitOfWorkImpl  : IUnitOfWork, IDisposable
     {
         private   readonly  FarmAdvisorDbContext _context;
 
