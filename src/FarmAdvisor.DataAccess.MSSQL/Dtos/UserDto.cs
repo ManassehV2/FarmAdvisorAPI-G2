@@ -11,8 +11,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
         public string? Email { get; set; }
         public string? AuthId { get; set; }
 
-        [ForeignKey("FarmDto")]
-        public Guid FarmId { get; set; }
+        // Navigation properties
         public FarmDto? Farm { get; set; }
 
     }

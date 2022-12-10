@@ -30,20 +30,20 @@ namespace FarmAdvisor.Functions.Test.HttpFunctionsTest
             }).Services;
 
         }
-        [Fact]
-        public async Task FarmFieldDashboard_WithValidFieldId_ReturnsOK()
-        {
-            //Arrange
-            var functionClass = _serviceProvider.GetService<FarmFieldFunctions>();
-            var testFarmId = Guid.NewGuid();
+        // [Fact]
+        // public async void FarmFieldDashboard_WithValidFieldId_ReturnsOK()
+        // {
+        //     //Arrange
+        //     var functionClass = _serviceProvider.GetService<FarmFieldFunctions>();
+        //     var testFarmId = Guid.NewGuid();
 
-            //Act
-            var response = (OkObjectResult)await functionClass.GetAllFarmFields(FakeHttpRequest.Create($"https://localhost/users/farms/fields?farmId={testFarmId}"));
+        //     //Act
+        //     var response = (OkObjectResult)await functionClass!.GetAllFarmFields(FakeHttpRequest.Create($"https://localhost/users/farms/fields?farmId={testFarmId}"));
 
-            //Assert
-            Assert.Equal(200, response.StatusCode);
+        //     //Assert
+        //     Assert.Equal(200, response.StatusCode);
 
-        }
+        // }
 
     }
 }

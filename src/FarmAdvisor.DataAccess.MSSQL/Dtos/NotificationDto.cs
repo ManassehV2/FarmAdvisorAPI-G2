@@ -10,22 +10,21 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
 {
     public enum Status
     {
-        OK,
-        WARNING
+        READ,
+        UNREAD
 
     }
     public class NotificationDto
     {
-
         [Key]
         public Guid NotificationId { get; set; }
-
-        [ForeignKey("FarmDto")]
-        public Guid FarmId { get; set; }
-        public FarmDto? Farm { get; set; }
         public string? Title { get; set; }
         public string? Message { get; set; }
         public Status Status { get; set; }
+
+        // Navigation properties
+        public Guid FarmId { get; set; }
+        public FarmDto? Farm { get; set; }
         
     }
 }

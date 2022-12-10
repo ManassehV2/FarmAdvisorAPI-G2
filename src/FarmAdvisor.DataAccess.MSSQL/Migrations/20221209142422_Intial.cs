@@ -6,11 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Intial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AuthId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Farms",
                 columns: table => new
@@ -25,6 +39,12 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Farms", x => x.FarmId);
+                    table.ForeignKey(
+                        name: "FK_Farms_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,37 +52,37 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                 columns: table => new
                 {
                     FieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FarmDtoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Altitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Polygon = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Polygon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FarmId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FarmFeilds", x => x.FieldId);
                     table.ForeignKey(
-                        name: "FK_FarmFeilds_Farms_FarmDtoId",
-                        column: x => x.FarmDtoId,
+                        name: "FK_FarmFeilds_Farms_FarmId",
+                        column: x => x.FarmId,
                         principalTable: "Farms",
                         principalColumn: "FarmId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Notifications",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AuthId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NotificationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     FarmId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_Notifications", x => x.NotificationId);
                     table.ForeignKey(
-                        name: "FK_Users_Farms_FarmId",
+                        name: "FK_Notifications_Farms_FarmId",
                         column: x => x.FarmId,
                         principalTable: "Farms",
                         principalColumn: "FarmId",
@@ -83,49 +103,58 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     Long = table.Column<double>(type: "float", nullable: false),
                     Lat = table.Column<double>(type: "float", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
-                    FarmFeildId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FarmFieldFieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    FeildId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sensors", x => x.SensorId);
                     table.ForeignKey(
-                        name: "FK_Sensors_FarmFeilds_FarmFieldFieldId",
-                        column: x => x.FarmFieldFieldId,
+                        name: "FK_Sensors_FarmFeilds_FeildId",
+                        column: x => x.FeildId,
                         principalTable: "FarmFeilds",
-                        principalColumn: "FieldId");
+                        principalColumn: "FieldId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FarmFeilds_FarmDtoId",
+                name: "IX_FarmFeilds_FarmId",
                 table: "FarmFeilds",
-                column: "FarmDtoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sensors_FarmFieldFieldId",
-                table: "Sensors",
-                column: "FarmFieldFieldId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_FarmId",
-                table: "Users",
                 column: "FarmId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Farms_UserId",
+                table: "Farms",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_FarmId",
+                table: "Notifications",
+                column: "FarmId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sensors_FeildId",
+                table: "Sensors",
+                column: "FeildId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Sensors");
+                name: "Notifications");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Sensors");
 
             migrationBuilder.DropTable(
                 name: "FarmFeilds");
 
             migrationBuilder.DropTable(
                 name: "Farms");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

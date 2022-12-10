@@ -6,16 +6,15 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
     public enum State
     {
         
-        OK,
-        BATTERYLOW,
+        OK = 0,
+        BATTERYLOW = 1,
 
-        INACTIVE
     
     }
     public class SensorDto
     {
         [Key]
-       public Guid SensorId { get; set; }
+        public Guid SensorId { get; set; }
         public string? SerialNo { get; set; }
         public DateTime LastCommunication { get; set; }
         public int BatteryStatus { get; set; }
@@ -26,9 +25,10 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
         public double Lat { get; set; }
         public State State { get; set; }
 
-        [ForeignKey("FarmFieldDto")]
-        public Guid FarmFeildId { get; set; }
-        public FarmFieldDto? FarmField { get; set; }
+        
+        [ForeignKey("Feild")]
+        public Guid FeildId { get; set; }
+        public FarmFieldDto? Feild { get; set; }
 
     }
 }

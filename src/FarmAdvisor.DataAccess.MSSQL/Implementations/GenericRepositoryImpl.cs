@@ -23,34 +23,34 @@ public class GenericRepositoryImpl<T> : IGenericRepository<T> where T : class
 
     }
 
-    public ValueTask<T> DeleteAsync(T entity)
+    public ValueTask<T?> DeleteAsync(T entity)
     {
         var result = _context.Set<T>().Remove(entity);
         _context.SaveChanges();
-        return new ValueTask<T>(result.Entity);
+        return new ValueTask<T?>(result.Entity);
     }
 
 
-    public  ValueTask<IEnumerable<T>> GetAllAsync()
+    public  ValueTask<List<T>> GetAllAsync()
     {
         var result =  _context.Set<T>().ToListAsync();
-        return new ValueTask<IEnumerable<T>>((IEnumerable<T>)result);
+        return new ValueTask<List<T>>(result);
     }
 
 
-    public ValueTask<T> GetByIdAsync(Guid id)
+    public ValueTask<T?> GetByIdAsync(Guid id)
     {
         var result =  _context.Set<T>().Find(id);
-        return new ValueTask<T>(result);
+        return new ValueTask<T?>(result);
 
     }
 
 
-    public ValueTask<T> UpdateAsync(T entity)
+    public ValueTask<T?> UpdateAsync(T entity)
     {
         var result = _context.Set<T>().Update(entity);
         _context.SaveChanges();
-        return new ValueTask<T>(result.Entity);
+        return new ValueTask<T?>(result.Entity);
 
         
     }

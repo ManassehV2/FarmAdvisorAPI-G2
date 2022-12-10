@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 {
     [DbContext(typeof(FarmAdvisorDbContext))]
-    [Migration("20221207211943_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221209190222_Modification1")]
+    partial class Modification1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,9 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 
                     b.HasKey("FarmId");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("Farms");
                 });
 
@@ -60,7 +63,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<decimal>("Altitude")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("FarmDtoId")
+                    b.Property<Guid>("FarmId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -71,9 +74,34 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 
                     b.HasKey("FieldId");
 
-                    b.HasIndex("FarmDtoId");
+                    b.HasIndex("FarmId");
 
                     b.ToTable("FarmFeilds");
+                });
+
+            modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.NotificationDto", b =>
+                {
+                    b.Property<Guid>("NotificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FarmId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NotificationId");
+
+                    b.HasIndex("FarmId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorDto", b =>
@@ -88,10 +116,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<DateTime>("CuttingDateCaclculated")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FarmFeildId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("FarmFieldFieldId")
+                    b.Property<Guid>("FeildId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("LastCommunication")
@@ -117,7 +142,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 
                     b.HasKey("SensorId");
 
-                    b.HasIndex("FarmFieldFieldId");
+                    b.HasIndex("FeildId");
 
                     b.ToTable("Sensors");
                 });
@@ -134,40 +159,37 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("FarmId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("FarmId");
-
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmDto", b =>
+                {
+                    b.HasOne("FarmAdvisor.DataAccess.MSSQL.Dtos.UserDto", "User")
+                        .WithOne("Farm")
+                        .HasForeignKey("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmDto", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmFieldDto", b =>
                 {
                     b.HasOne("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmDto", "Farm")
                         .WithMany("FarmFeilds")
-                        .HasForeignKey("FarmDtoId")
+                        .HasForeignKey("FarmId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Farm");
                 });
 
-            modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorDto", b =>
-                {
-                    b.HasOne("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmFieldDto", "FarmField")
-                        .WithMany()
-                        .HasForeignKey("FarmFieldFieldId");
-
-                    b.Navigation("FarmField");
-                });
-
-            modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.UserDto", b =>
+            modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.NotificationDto", b =>
                 {
                     b.HasOne("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmDto", "Farm")
                         .WithMany()
@@ -178,9 +200,30 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Navigation("Farm");
                 });
 
+            modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorDto", b =>
+                {
+                    b.HasOne("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmFieldDto", "Feild")
+                        .WithMany("Sensors")
+                        .HasForeignKey("FeildId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Feild");
+                });
+
             modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmDto", b =>
                 {
                     b.Navigation("FarmFeilds");
+                });
+
+            modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmFieldDto", b =>
+                {
+                    b.Navigation("Sensors");
+                });
+
+            modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.UserDto", b =>
+                {
+                    b.Navigation("Farm");
                 });
 #pragma warning restore 612, 618
         }
