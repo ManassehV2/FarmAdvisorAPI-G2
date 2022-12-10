@@ -83,19 +83,7 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Test
         }
 
 
-        public static NotificationDto GenerateNotificationDto(string number = "1")
-        {
-            var id = Guid.NewGuid();
-            var Notification = new NotificationDto
-            {
-                NotificationId = Guid.NewGuid(),
-                Title = String.Format("Test Notification {0}", number),
-                Message = String.Format("Test Notification {0}", number),
-                Status = Status.UNREAD,
-            };
-
-            return Notification;
-        }
+       
 
         public static List<UserDto> GenerateUserDtos(int count = 10)
         {
