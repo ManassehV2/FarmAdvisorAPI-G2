@@ -14,6 +14,9 @@ namespace FarmAdvisor.DataAccess.MSSQL.Abstractions
         IFarmFeildRepository FarmFeildRepository { get; }
 
         int SaveChanges();
+        new void Dispose();
+
+        
         
     }
 }

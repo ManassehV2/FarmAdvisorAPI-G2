@@ -3,7 +3,7 @@ using FarmAdvisor.DataAccess.MSSQL.Abstractions;
 
 namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
 {
-     public   class   UnitOfWorkImpl  : IUnitOfWork, IDisposable
+     public class UnitOfWorkImpl  : IUnitOfWork
     {
         private   readonly  FarmAdvisorDbContext _context;
 
@@ -28,8 +28,9 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
 
        
 
-        public   void   Dispose ()
+        public void Dispose ()
         {
+            GC.SuppressFinalize(this);
             _context.Dispose();
         }
 

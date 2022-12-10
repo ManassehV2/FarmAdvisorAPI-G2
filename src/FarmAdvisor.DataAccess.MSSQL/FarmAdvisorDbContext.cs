@@ -24,17 +24,6 @@ namespace FarmAdvisor.DataAccess.MSSQL
         public DbSet<UserDto> Users { get; set; }
         public DbSet<NotificationDto> Notifications { get; set; }
 
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-           
-                
-
-        }
-
-
     }
     
 }

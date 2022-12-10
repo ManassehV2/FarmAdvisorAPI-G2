@@ -15,7 +15,7 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Test
                 UserId = Guid.NewGuid(),
                 Name = String.Format("Test User {0}", number),
                 Email = String.Format("testuser{0}@gmail.com", number),
-                AuthId = String.Format("authId", number),
+                AuthId = String.Format("authId{0}", number),
                 Farm = null
             };
 
