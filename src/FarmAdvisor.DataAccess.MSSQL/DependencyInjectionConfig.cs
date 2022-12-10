@@ -13,10 +13,11 @@ namespace FarmAdvisor.DataAccess.MSSQL
         {
             var  connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<FarmAdvisorDbContext>(options =>
-                options.UseSqlServer(connectionString!, b => b.MigrationsAssembly(typeof(FarmAdvisorDbContext).Assembly.FullName)), ServiceLifetime.Scoped);
+                options.UseSqlServer(connectionString!, b => b.MigrationsAssembly(typeof(FarmAdvisorDbContext).Assembly.FullName)), ServiceLifetime.Transient);
 
-            services.AddScoped<IFarmAdvisorDbContext>(provider => provider.GetService<FarmAdvisorDbContext>()!);
-            
+            services.AddTransient<IFarmAdvisorDbContext>(provider => provider.GetService<FarmAdvisorDbContext>()!);
+            services.AddTransient<IUnitOfWork, UnitOfWorkImpl>();
+        
             return services;
         }
     }

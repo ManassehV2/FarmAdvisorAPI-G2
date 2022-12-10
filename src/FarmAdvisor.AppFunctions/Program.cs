@@ -18,7 +18,7 @@ var host = new HostBuilder()
         services.AddHttpClient();
         services.AddSingleton<IConfiguration>(configuration);
         services.AddBusinessConfig(configuration);
-        
+
     })
     .Build();
 

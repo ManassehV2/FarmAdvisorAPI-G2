@@ -11,7 +11,6 @@ namespace FarmAdvisor.Business
         {
 
             services.AddDataAccess(configuration);
-
             return services;
             
         }

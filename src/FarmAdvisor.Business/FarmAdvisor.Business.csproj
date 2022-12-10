@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\FarmAdvisor.DataAccess.MSSQL\FarmAdvisor.DataAccess.MSSQL.csproj" />
+    <ProjectReference Include="..\FarmAdvisor.Models\FarmAdvisor.Models.csproj" />
   </ItemGroup>
 
 </Project>
