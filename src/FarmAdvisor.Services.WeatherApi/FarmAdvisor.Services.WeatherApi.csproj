@@ -6,4 +6,21 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.Azure.WebJobs">
+      <HintPath>..\..\..\..\..\..\..\.nuget\packages\microsoft.azure.webjobs.core\3.0.25\lib\netstandard2.0\Microsoft.Azure.WebJobs.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.WebJobs.Extensions">
+      <HintPath>..\..\..\..\..\..\..\.nuget\packages\microsoft.azure.webjobs.extensions\3.0.6\lib\netstandard2.0\Microsoft.Azure.WebJobs.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>..\..\..\..\..\..\..\.nuget\packages\microsoft.extensions.logging.abstractions\7.0.0\lib\net6.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FarmAdvisor.Models\FarmAdvisor.Models.csproj" />
+  </ItemGroup>
 </Project>

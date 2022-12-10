@@ -19,5 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FarmAdvisor.Models\FarmAdvisor.Models.csproj" />
+    <ProjectReference Include="..\FarmAdvisor.Services.WeatherApi\FarmAdvisor.Services.WeatherApi.csproj" />
   </ItemGroup>
 </Project>
