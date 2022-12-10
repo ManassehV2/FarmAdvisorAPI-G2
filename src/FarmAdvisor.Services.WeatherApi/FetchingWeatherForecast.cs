@@ -13,17 +13,13 @@ namespace FarmAdvisor.Services.WeatherApi
     public class FetchingWeatherForecast
     {
         private readonly ILogger<FetchingWeatherForecast> _logger;
-        private static HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
        
-        static FetchingWeatherForecast()
-        {
-            _httpClient = new HttpClient();
-        }
-
-        public FetchingWeatherForecast(ILogger<FetchingWeatherForecast> logger)
+        public FetchingWeatherForecast(ILogger<FetchingWeatherForecast> logger, HttpClient httpclient)
         {
             _logger = logger;
+            _httpClient = httpclient;
         }
         
         /*
@@ -65,33 +61,34 @@ namespace FarmAdvisor.Services.WeatherApi
 
         public static async Task<List<SensorWeatherData>> SensorWeatherForecast()
         {
-            List<string> sensores = CallConvMemberFunction():
-                
+            // // List<string> sensores = CallConvMemberFunction():
+            //     
             List<SensorWeatherData> listOfSensorWeatherData = new List<SensorWeatherData>();
-            const double baseTemperature = -17.2;
-            foreach (var sensor in sensores)
-            {
-                // first call the met api and find the forecast data using it's latitude and 
-                SensorWeatherData curSensorWeatherData = new SensorWeatherData();
-                
-                WeatherForecastModel weatherForecastOfCurrentSensor = GetForecastData(23.1, 12.3);
-
-                Dictionary<string, List<double>> temperaturesWithDatesOfCurrentSensor =  TemperatureWithDateFinder(weatherForecastOfCurrentSensor);
-                
-                Dictionary<string, double> gddOfEachDayOfCurrentSensor =
-                GddOfEachDayCalculator(temperaturesWithDatesOfCurrentSensor, baseTemperature);
-
-                Dictionary<string, double> averageTemperatureOfCurrentSensor = AverageTemperatureOfEachSensor(
-                    temperaturesWithDatesOfCurrentSensor);
-
-                curSensorWeatherData.SensorId = sensor.Id;
-                curSensorWeatherData.ForecastGDD = gddOfEachDayOfCurrentSensor;
-                curSensorWeatherData.ForecastTemperature = averageTemperatureOfCurrentSensor;
-                
-                listOfSensorWeatherData.Add(curSensorWeatherData);
-            }
-
+            // const double baseTemperature = -17.2;
+            // foreach (var sensor in sensores)
+            // {
+            //     // first call the met api and find the forecast data using it's latitude and 
+            //     SensorWeatherData curSensorWeatherData = new SensorWeatherData();
+            //     
+            //     // WeatherForecastModel weatherForecastOfCurrentSensor = GetForecastData(23.1, 12.3);
+            //
+            //     Dictionary<string, List<double>> temperaturesWithDatesOfCurrentSensor =  TemperatureWithDateFinder(weatherForecastOfCurrentSensor);
+            //     
+            //     Dictionary<string, double> gddOfEachDayOfCurrentSensor =
+            //     GddOfEachDayCalculator(temperaturesWithDatesOfCurrentSensor, baseTemperature);
+            //
+            //     Dictionary<string, double> averageTemperatureOfCurrentSensor = AverageTemperatureOfEachSensor(
+            //         temperaturesWithDatesOfCurrentSensor);
+            //
+            //     curSensorWeatherData.SensorId = sensor.Id;
+            //     curSensorWeatherData.ForecastGDD = gddOfEachDayOfCurrentSensor;
+            //     curSensorWeatherData.ForecastTemperature = averageTemperatureOfCurrentSensor;
+            //     
+            //     listOfSensorWeatherData.Add(curSensorWeatherData);
+            // }
+            //
             return listOfSensorWeatherData;
+            
         }
         
         
@@ -99,32 +96,23 @@ namespace FarmAdvisor.Services.WeatherApi
         /*
          * Implement this http request and create a DTO using the model from FarmAdvisor.Model folder
          */
-        public static async Task<string> GetForecastData(double latitude, double longitude)
+        public  async Task<WeatherForecastModel> GetForecastData(double latitude, double longitude)
         {
             var url =
                 "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=60.10&lon=9.58";
+            _httpClient.DefaultRequestHeaders.Add("User-Agent" ,"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36");
+            try
+            {
+                WeatherForecastModel? result = await _httpClient.GetFromJsonAsync<WeatherForecastModel>(url);
+                
+                return result;
+
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
             
-
-            string result = await _httpClient.GetStringAsync(url);
-
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-            var productValue = new ProductInfoHeaderValue("ScraperBot", "1.0");
-            var commentValue = new ProductInfoHeaderValue("(+http://www.API.com/ScraperBot.html)");
-
-            request.Headers.UserAgent.Add(productValue);
-            request.Headers.UserAgent.Add(commentValue);
-            var response = await _httpClient.SendAsync(request);
-
-            var content = response.Content.ReadAsStringAsync();
-
-            var res = JsonConvert.SerializeObject(content);
-
-            // Store this weather data with a sensor id in the azure table
-            // WeatherForecastModel? weather = JsonConvert.DeserializeObject<WeatherForecastModel>(res);
-            // Then calculate the GDD of this sensor 
-
-            return content.Result;
         }
         
         
