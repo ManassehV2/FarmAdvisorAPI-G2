@@ -30,7 +30,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             var sensors = await UnitOfWork.SensorRepository.GetAllAsync();
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farmResult! }, UnitOfWork.FarmRepository);
             var sensorsAfterDelete = await UnitOfWork.SensorRepository.GetAllAsync();
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             
             Assert.Empty(sensorsAfterDelete);
@@ -58,7 +58,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
 
             var result = await UnitOfWork.SensorRepository.GetByIdAsync(sensor.SensorId);
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
             
             Assert.Equal(sensor, result);
 
@@ -92,7 +92,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             
             // clean database
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             Assert.Equal(numberOfSensors, result.Count);
             
@@ -152,7 +152,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             var sensorAfterDelete = await UnitOfWork.SensorRepository.GetByIdAsync(sensor.SensorId);
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
 
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             Assert.Empty(fieldAfterDelete!.Sensors!);
             Assert.Null(sensorAfterDelete);
@@ -179,7 +179,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
 
             await UnitOfWork.FarmRepository.DeleteAsync(farm);
             var sensorAfterDeleteFarm = await UnitOfWork.SensorRepository.GetByIdAsync(sensor.SensorId);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
 
             Assert.Null(sensorAfterDeleteFarm);

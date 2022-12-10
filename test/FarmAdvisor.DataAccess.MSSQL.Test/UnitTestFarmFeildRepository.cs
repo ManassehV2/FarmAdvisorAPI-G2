@@ -29,7 +29,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             var farmResult = await UnitOfWork.FarmRepository.GetByIdAsync(farm.FarmId);
             var farmFeildResult = await UnitOfWork.FarmFeildRepository.GetByIdAsync(farmFeild.FieldId);
 
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             Assert.NotNull(farmResult);
             Assert.NotNull(farmFeildResult);
@@ -47,7 +47,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             var farmFeild = DtoGenerator.GenerateFarmFieldDto();
             await UnitOfWork.FarmFeildRepository.AddAsync(farmFeild);
             var result = await UnitOfWork.FarmFeildRepository.GetByIdAsync(farmFeild.FieldId);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
             
             Assert.Equal(farmFeild, result);
         }
@@ -77,7 +77,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             // clean database
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
             var feildsAfterDelete = await UnitOfWork.FarmFeildRepository.GetAllAsync();
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
             Assert.Empty(feildsAfterDelete);
             Assert.Equal(numberOfFarmFeilds, result.Count);
             
@@ -101,7 +101,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             var resultAfterUpdate = await UnitOfWork.FarmFeildRepository.GetByIdAsync(farmFeild.FieldId);
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
 
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
             Assert.Equal(farmFeild, resultAfterUpdate);
               
         }
@@ -123,7 +123,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             var resultAfterDelete = await UnitOfWork.FarmRepository.GetByIdAsync(farm.UserId);
             var farmAfterDelete = await UnitOfWork.FarmRepository.GetByIdAsync(farm.FarmId);
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             Assert.NotNull(resultBeforeDelete);
             Assert.Null(resultAfterDelete);
@@ -152,7 +152,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
 
             await UnitOfWork.FarmRepository.DeleteAsync(farmResult);
             var farmFieldResultAfterDelete = await UnitOfWork.FarmFeildRepository.GetByIdAsync(farmField.FieldId);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             Assert.Null(farmFieldResultAfterDelete);
 

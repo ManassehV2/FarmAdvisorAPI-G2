@@ -22,7 +22,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             await UnitOfWork.FarmRepository.AddAsync(farm);
             var result = await UnitOfWork.FarmRepository.GetByIdAsync(farm.FarmId);
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             Assert.Equal(farm, result);
             
@@ -36,7 +36,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             await UnitOfWork.FarmRepository.AddAsync(farm);
             var result = await UnitOfWork.FarmRepository.GetByIdAsync(farm.FarmId);
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
             Assert.Equal(farm, result);
         }
 
@@ -71,7 +71,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
 
             // clean database
             Utils.DeleteAll<FarmDto>(result, UnitOfWork.FarmRepository);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             // test
             Assert.Equal(numberOfFarms, result.Count);
@@ -90,7 +90,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             var result = await UnitOfWork.FarmRepository.GetByIdAsync(farm.FarmId);
             Utils.DeleteAll<FarmDto>(new List<FarmDto> { farm }, UnitOfWork.FarmRepository);
 
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
             Assert.Equal(farm, result);
               
         }
@@ -106,7 +106,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             await UnitOfWork.FarmRepository.DeleteAsync(farm);
             var resultAfterDelete = await UnitOfWork.FarmRepository.GetByIdAsync(farm.UserId);
 
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             Assert.NotNull(resultBeforeDelete);
             Assert.Null(resultAfterDelete);
@@ -133,7 +133,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
             var farmResult = await UnitOfWork.FarmRepository.GetByIdAsync(farm.FarmId);
             var farmFieldResult = await UnitOfWork.FarmFeildRepository.GetByIdAsync(farmField.FieldId);
             Utils.DeleteAll<UserDto>(new List<UserDto> { user }, UnitOfWork.UserRepository);
-            UnitOfWork.Dispose();
+            UnitOfWork.DisposeContext();
 
             Assert.Equal(user.Farm, userResult!.Farm);
             Assert.Equal(farm.User, farmResult!.User);

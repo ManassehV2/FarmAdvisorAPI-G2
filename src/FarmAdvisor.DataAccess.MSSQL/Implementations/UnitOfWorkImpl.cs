@@ -28,9 +28,8 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
 
        
 
-        public void Dispose ()
+        public void DisposeContext ()
         {
-            GC.SuppressFinalize(this);
             _context.Dispose();
         }
 
