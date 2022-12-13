@@ -17,7 +17,7 @@ public class TimeTriggeredFunction
     }
     
     [FunctionName("TimeTriggeredFunction")]
-    public async Task RunAsync([TimerTrigger("5-7 * * * * *")] TimerInfo myTimer, ILogger log)
+    public async Task RunAsync([TimerTrigger("0 0 5 * * *")] TimerInfo myTimer, ILogger log)
     {
         log.LogInformation($"C# Timer trigger function executed at: {DateTime.UtcNow}");
         /*
