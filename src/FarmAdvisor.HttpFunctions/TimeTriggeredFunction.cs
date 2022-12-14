@@ -9,9 +9,9 @@ namespace FarmAdvisor.HttpFunctions;
 
 public class TimeTriggeredFunction
 {
-    public readonly IWeatherRemoteRepository _weatherForecast;
+    public readonly FetchingWeatherForecast _weatherForecast;
 
-    public TimeTriggeredFunction(IWeatherRemoteRepository weatherForecast)
+    public TimeTriggeredFunction(FetchingWeatherForecast weatherForecast)
     {
         _weatherForecast = weatherForecast;
     }
@@ -20,11 +20,7 @@ public class TimeTriggeredFunction
     public async Task RunAsync([TimerTrigger("0 0 5 * * *")] TimerInfo myTimer, ILogger log)
     {
         log.LogInformation($"C# Timer trigger function executed at: {DateTime.UtcNow}");
-        /*
-         * call the weather api function from here
-         */
-        WeatherForecastModel res = await _weatherForecast.GetForecastData(1.2, 2.3);
-        log.LogInformation(res.Type);
+        await _weatherForecast.SensorWeatherForecast();
 
     }
 }
