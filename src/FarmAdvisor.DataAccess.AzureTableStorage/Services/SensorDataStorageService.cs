@@ -33,10 +33,10 @@ namespace FarmAdvisor.DataAccess.AzureTableStorage.Services
         }
 
         //delete operation
-        public async Task DeleteEntityAsync(string SensorId, string SensorData)
+        public async Task DeleteEntityAsync(string SensorId, string Temprature)
         {
             var tableClient = await GetTableClient();
-            await tableClient.DeleteEntityAsync(SensorId, SensorData);
+            await tableClient.DeleteEntityAsync(SensorId, Temprature);
         }
 
         private async Task<TableClient> GetTableClient()
