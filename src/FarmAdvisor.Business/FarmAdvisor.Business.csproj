@@ -5,5 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FarmAdvisor.DataAccess.MSSQL\FarmAdvisor.DataAccess.MSSQL.csproj" />
+    <ProjectReference Include="..\FarmAdvisor.Models\FarmAdvisor.Models.csproj" />
+  </ItemGroup>
 
 </Project>

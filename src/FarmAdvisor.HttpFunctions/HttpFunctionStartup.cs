@@ -17,6 +17,7 @@ namespace FarmAdvisor.HttpFunctions
             services.AddHttpClient<IWeatherRemoteRepository>();
             services.AddScoped<IWeatherRemoteRepository, WeatherRemoteRepositoryImpl>();
 
+
         }
 
         public override void Configure(IFunctionsHostBuilder builder) =>
