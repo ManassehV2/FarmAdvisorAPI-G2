@@ -1,5 +1,5 @@
+
 using FarmAdvisor.HttpFunctions;
-using FarmAdvisor.HttpFunctions.Functions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +14,7 @@ namespace FarmAdvisor.Functions.Test.HttpFunctionsTest.Infrastructure
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<FarmFieldFunctions>();
+            services.AddScoped<FarmFieldFunctionsTest>();
             HttpFunctionStartup.ConfigureServices(services);
         }
     }
