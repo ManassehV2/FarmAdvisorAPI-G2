@@ -12,11 +12,11 @@ namespace FarmAdvisorApi.Models
         public int? BatterStatus { get; set; }
 
         public DateTime? CuttingDateCalculated { get; set; }
-        public DateTime? LastForecastDate { get; set; }
-      
-        public string? PartitionKey { get; set; }
-        public string? RowKey { get; set; }
-        public DateTimeOffset? Timestamp { get; set; }
+        public String? LastForecastDate { get; set; }
+
+        public string PartitionKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string RowKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTimeOffset? Timestamp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Guid? FieldId { get; set; }
         public string? SerialNo { get; set; }
         public ETag ETag { get; set; }
