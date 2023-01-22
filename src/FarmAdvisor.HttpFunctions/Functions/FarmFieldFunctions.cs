@@ -1,7 +1,4 @@
-using System;
-using System.Text.Json;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +9,6 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System.Linq;
 using FarmAdvisor.Models.Models;
 
 namespace FarmAdvisor.HttpFunctions.Functions
@@ -36,16 +32,11 @@ namespace FarmAdvisor.HttpFunctions.Functions
              [HttpTrigger(AuthorizationLevel.Function, "get", Route = "users/fields")] HttpRequest req)
         {
             _logger.LogInformation("Executing {method}", nameof(GetAllFarmFields));
-
            
                 var result = new FarmFieldModel();
                 return new OkObjectResult(result);
-            
 
         }
-
-       
-
 
     }
 }

@@ -7,14 +7,14 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
     {
         [Key]
         public Guid FieldId { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public decimal Altitude { get; set; }
         public string? Polygon { get; set; }
 
         // Navigation properties
         [ForeignKey("FarmDto")]
         public Guid FarmId { get; set; }
-        public FarmDto? Farm { get; set; }
+        public FarmDto Farm { get; set; }
 
         public List<SensorDto>? Sensors { get; set; }
 

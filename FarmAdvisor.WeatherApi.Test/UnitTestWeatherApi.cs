@@ -1,6 +1,5 @@
 using FarmAdvisor.Models.Models;
 using FarmAdvisor.Services.WeatherApi;
-using FakeItEasy;
 
 namespace weatherApi.Test
 {

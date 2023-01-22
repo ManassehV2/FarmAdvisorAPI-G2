@@ -29,6 +29,7 @@
     <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FarmAdvisor.DataAccess.MSSQL\FarmAdvisor.DataAccess.MSSQL.csproj" />
-    </ItemGroup>
+    <ProjectReference Include="..\FarmAdvisor.Business\FarmAdvisor.Business.csproj" />
+    <ProjectReference Include="..\FarmAdvisor.Models\FarmAdvisor.Models.csproj" />
+  </ItemGroup>
 </Project>
