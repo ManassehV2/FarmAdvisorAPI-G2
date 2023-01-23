@@ -6,10 +6,10 @@ namespace FarmAdvisor.DataAccess.AzureTableStorage.Services
     public interface ISensorDataStorageService
     {
 
-        Task<SensorDataStorageEntity> GetEntityAsync(string SensorId, string Temprature);
+        Task<SensorDataStorageEntity> GetEntityAsync(string SensorId, String LastForecastDate);
 
         // upsert includes both creating and updating
         Task<SensorDataStorageEntity> UpsertEntityAsync(SensorDataStorageEntity entity);
-        Task DeleteEntityAsync(string SensorId, string Temprature);
+        Task DeleteEntityAsync(string SensorId, String LastForecastDate);
     }
 }

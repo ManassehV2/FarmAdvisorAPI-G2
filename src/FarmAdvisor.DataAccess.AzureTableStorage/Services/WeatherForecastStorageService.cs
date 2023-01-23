@@ -18,10 +18,10 @@ namespace FarmAdvisor.DataAccess.AzureTableStorage.Services
         // implementing crud operation
 
         //reading
-        public async Task<WeatherForecastEntity> GetEntityAsync(string SensorId, string Temprature)
+        public async Task<WeatherForecastEntity> GetEntityAsync(string SensorId, string LastForecastDate)
         {
             var tableClient = await GetTableClient();
-            return await tableClient.GetEntityAsync<WeatherForecastEntity>(SensorId, Temprature);
+            return await tableClient.GetEntityAsync<WeatherForecastEntity>(SensorId, LastForecastDate);
         }
 
         //Upsert includes an operation that inserts the given entity into a table if it does not exist and replaces the contents in case the entity already exists.
@@ -33,10 +33,10 @@ namespace FarmAdvisor.DataAccess.AzureTableStorage.Services
         }
 
         //delete operation
-        public async Task DeleteEntityAsync(string SensorId, string Temprature)
+        public async Task DeleteEntityAsync(string SensorId, string LastForecastDate)
         {
             var tableClient = await GetTableClient();
-            await tableClient.DeleteEntityAsync(SensorId, Temprature);
+            await tableClient.DeleteEntityAsync(SensorId, LastForecastDate);
         }
 
         private async Task<TableClient> GetTableClient()

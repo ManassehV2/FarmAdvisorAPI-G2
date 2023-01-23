@@ -5,10 +5,10 @@ namespace FarmAdvisor.DataAccess.AzureTableStorage.Services
     // building an interface for crud operation of WeatherForecast Table
     public interface IWeatherForecastStorage
     {
-        Task<WeatherForecastEntity> GetEntityAsync(string SensorId, string Temprature);
+        Task<WeatherForecastEntity> GetEntityAsync(string SensorId, string LastForecastDate);
         
         // upsert includes both creating and updating
         Task<WeatherForecastEntity> UpsertEntityAsync(WeatherForecastEntity entity);
-        Task DeleteEntityAsync(string SensorId, string Temprature);
+        Task DeleteEntityAsync(string SensorId, string LastForecastDate);
     }
 }
