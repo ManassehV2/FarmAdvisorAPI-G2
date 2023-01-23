@@ -11,9 +11,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
         public decimal Altitude { get; set; }
         public string? Polygon { get; set; }
 
-
         // Navigation properties
-
         [ForeignKey("FarmDto")]
         public Guid FarmId { get; set; }
         public FarmDto? Farm { get; set; }
