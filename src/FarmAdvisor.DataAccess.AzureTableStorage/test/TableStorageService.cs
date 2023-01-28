@@ -1,28 +1,56 @@
-namespace FarmAdvisor.Function.Test.DataAccess.AzureTableStorage
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Azure.Data.Tables;
+using FarmAdvisorApi.Models;
+
+namespace FarmAdvisor.DataAccess.AzureTableStorage.services
 {
-    internal class TableStorageService
+    public class TableStorageService : IAzuriteTableStorage
     {
-        private string tableName;
-    
 
-        public TableStorageService(string tableName)
+        private readonly string connectionString;
+        private readonly string TableName;
+
+        public TableStorageService(string TableName)
         {
-            this.tableName = tableName;
+            this.TableName = TableName;
+            this.connectionString = "AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;";
+
         }
 
-        internal Task DeleteEntityAsync<T>(string partitionKey, string rowKey)
+        private async Task<TableClient> GetTableClient()
         {
-            throw new NotImplementedException();
+            var serviceClient = new TableServiceClient(connectionString);
+
+            var tableClient = serviceClient.GetTableClient(TableName);
+            await tableClient.CreateIfNotExistsAsync();
+
+            return tableClient;
         }
 
-        internal Task GetEntityAsync<T>(string partitionKey, string rowKey)
+
+        public async Task DeleteEntityAsync<T>(string PartitionKey, string RowKey) where T : class, ITableEntity, new()
         {
-            throw new NotImplementedException();
+            var tableClient = await GetTableClient();
+
+            await tableClient.DeleteEntityAsync(PartitionKey, RowKey);
         }
 
-        internal Task UpsertEntityAsync<T>(T weather)
+        public async Task<T> GetEntityAsync<T>(string PartitionKey, string RowKey) where T : class, ITableEntity, new()
         {
-            throw new NotImplementedException();
+            var tableClient = await GetTableClient();
+
+            return await tableClient.GetEntityAsync<T>(PartitionKey, RowKey);
+        }
+
+        public async Task<T> UpsertEntityAsync<T>(T entity) where T : class, ITableEntity, new()
+        {
+            var tableClient = await GetTableClient();
+
+            await tableClient.UpsertEntityAsync<T>(entity);
+            return entity;
         }
     }
 }
