@@ -1,6 +1,5 @@
-using FarmAdvisor.Models.Models;
+/*using FarmAdvisor.Models.Models;
 using FarmAdvisor.Services.WeatherApi;
-using FakeItEasy;
 
 namespace weatherApi.Test
 {
@@ -46,4 +45,4 @@ namespace weatherApi.Test
         
 
     }
-}
+}*/

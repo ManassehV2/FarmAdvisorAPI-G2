@@ -5,6 +5,17 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
 {
     public class FarmDto
     {
+
+        public FarmDto(Guid farmId, string? name, Guid userId, string? postcode, string? city, string? country)
+        {
+            FarmId = farmId;
+            Name = name;
+            UserId = userId;
+            Postcode = postcode;
+            City = city;
+            Country = country;
+            
+        }
         [Key]
         public Guid FarmId { get; set; }
         public string? Name { get; set; }
