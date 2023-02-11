@@ -30,7 +30,7 @@ namespace FarmAdvisor.Business{
                 return new Farm(farmDto.FarmId, farmDto.Name, farmDto.Postcode, farmDto.City, farmDto.Country, farmDto.UserId,
                  farmDto.FarmFeilds.Select(
                     farmFieldDto => new FarmFieldModel(
-                        farmFieldDto.FieldId, farmFieldDto.Name, farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
+                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
                         .ToList());
             }catch(Exception e){
                 throw e;
@@ -43,7 +43,7 @@ namespace FarmAdvisor.Business{
                 var farmDto = await _unitOfWork.FarmRepository.GetByIdAsync(farmId);
                 return farmDto.FarmFeilds.Select(
                     farmFieldDto => new FarmFieldModel(
-                        farmFieldDto.FieldId, farmFieldDto.Name, farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId));
+                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId));
             }catch(Exception e){
                 throw e;
             }
@@ -56,7 +56,7 @@ namespace FarmAdvisor.Business{
                 var farms = farmDtos.Select(farmDto => new Farm(farmDto.FarmId, farmDto.Name, farmDto.Postcode, farmDto.City, farmDto.Country, farmDto.UserId,
                  farmDto.FarmFeilds.Select(
                     farmFieldDto => new FarmFieldModel(
-                        farmFieldDto.FieldId, farmFieldDto.Name, farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
+                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
                         .ToList()));
                 return farms;
             }catch(Exception e){
@@ -71,7 +71,7 @@ namespace FarmAdvisor.Business{
                 var farm = new Farm(farmDto.FarmId, farmDto.Name, farmDto.Postcode, farmDto.City, farmDto.Country, farmDto.UserId,
                  farmDto.FarmFeilds.Select(
                     farmFieldDto => new FarmFieldModel(
-                        farmFieldDto.FieldId, farmFieldDto.Name, farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
+                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
                         .ToList());
                 _unitOfWork.FarmRepository.DeleteAsync(farmDto);
                 _unitOfWork.SaveChanges();

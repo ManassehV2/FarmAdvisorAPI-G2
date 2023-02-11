@@ -16,7 +16,7 @@ namespace FarmAdvisor.Business
         public async ValueTask<User> CreateUser(User user)
         {
             try{
-                var userDto = new UserDto(user.UserId, user.Name, user.Email, user.Token, user.Password);
+                var userDto = new UserDto( user.Name, user.Email, user.Password);
                 var newUser = await _unitOfWork.UserRepository.AddAsync(userDto);
                 _unitOfWork.SaveChanges();
                 return new User(newUser.UserId, newUser.Name, newUser.Email, newUser.Password, newUser.AuthId);

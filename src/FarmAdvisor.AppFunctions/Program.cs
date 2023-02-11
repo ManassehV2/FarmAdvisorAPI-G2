@@ -17,17 +17,18 @@ var host = new HostBuilder()
             .ConfigureServices((hostContext, services) =>
             {
                 services.AddBusinessDependencyConfig(hostContext.Configuration);
+                /*
                 services.AddScoped<CreateFarmField, CreateFarmField>();
                 services.AddScoped<CreateFarm, CreateFarm>();
                 services.AddScoped<CreateUser, CreateUser>();
 
                 services.AddScoped<GetFarmFieldById, GetFarmFieldById>();
                 services.AddScoped<GetUserById, GetUserById>();
-                //services.AddScoped<GetFieldsInFarm, GetFieldsInFarm>();
+                services.AddScoped<GetFieldsInFarm, GetFieldsInFarm>();
                 services.AddScoped<GetFarm, GetFarm>();
 
                 services.AddScoped<DeleteFarm, DeleteFarm>();
-                services.AddScoped<DeleteUser, DeleteUser>();
+                services.AddScoped<DeleteUser, DeleteUser>();*/
             })
             .Build();
 

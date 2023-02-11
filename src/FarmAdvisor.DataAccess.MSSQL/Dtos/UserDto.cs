@@ -5,6 +5,13 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
 {
     public class UserDto
     {
+        public UserDto(string name, string email, string password)
+        {
+            Name = name;
+            Email = email;
+            Password = password;
+        }
+
         [Key]
         public Guid UserId { get; set; }
         public string Name { get; set; }

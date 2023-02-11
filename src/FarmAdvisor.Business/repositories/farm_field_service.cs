@@ -16,13 +16,13 @@ namespace FarmAdvisor.Business{
         // create farm field
         public async ValueTask<FarmFieldModel> CreateFarmField(FarmFieldModel farmField){
             try{
-                var farmFieldDto = new FarmFieldDto(farmField.FieldId, farmField.Name, farmField.Altitude, farmField.Polygon, farmField.FarmId);
+                var farmFieldDto = new FarmFieldDto(farmField.Name, ((double)farmField.Altitude), farmField.Polygon, farmField.FarmId);
                 var newField = await _unitOfWork.FarmFeildRepository.AddAsync(farmFieldDto);
                 _unitOfWork.SaveChanges();
                 return new FarmFieldModel(
                         newField.FarmId,
                         newField.Name,
-                        newField.Altitude,
+                        (decimal)newField.Altitude,
                         newField.Polygon,
                         newField.FarmId);
             }catch(Exception e){
@@ -38,7 +38,7 @@ namespace FarmAdvisor.Business{
                 return new FarmFieldModel(
                     farmFieldDto.FieldId, 
                     farmFieldDto.Name, 
-                    farmFieldDto.Altitude, 
+                    (decimal)farmFieldDto.Altitude, 
                     farmFieldDto.Polygon, 
                     farmFieldDto.FarmId);
             }catch(Exception e){
@@ -54,7 +54,7 @@ namespace FarmAdvisor.Business{
                     farmFieldDto => new FarmFieldModel(
                         farmFieldDto.FieldId,
                         farmFieldDto.Name,
-                        farmFieldDto.Altitude, 
+                        (decimal)farmFieldDto.Altitude, 
                         farmFieldDto.Polygon, 
                         farmFieldDto.FarmId));
 
@@ -71,7 +71,7 @@ namespace FarmAdvisor.Business{
                 var farmField = new FarmFieldModel(
                     farmFieldDto.FieldId,
                     farmFieldDto.Name,
-                    farmFieldDto.Altitude, 
+                    (decimal)farmFieldDto.Altitude, 
                     farmFieldDto.Polygon, 
                     farmFieldDto.FarmId);
                 _unitOfWork.FarmFeildRepository.DeleteAsync(farmFieldDto);
@@ -99,7 +99,7 @@ namespace FarmAdvisor.Business{
                         sensorDto.Lat,
                         Models.Models.State.OK,
                         sensorDto.FeildId
-                        )).toList();
+                        )).ToList();
                 return sensors;
             }catch(Exception e){
                 throw e;
