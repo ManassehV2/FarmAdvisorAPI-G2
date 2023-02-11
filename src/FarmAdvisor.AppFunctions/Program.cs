@@ -23,7 +23,7 @@ var host = new HostBuilder()
 
                 services.AddScoped<GetFarmFieldById, GetFarmFieldById>();
                 services.AddScoped<GetUserById, GetUserById>();
-                services.AddScoped<GetFieldsInFarm, GetFieldsInFarm>();
+                //services.AddScoped<GetFieldsInFarm, GetFieldsInFarm>();
                 services.AddScoped<GetFarm, GetFarm>();
 
                 services.AddScoped<DeleteFarm, DeleteFarm>();
