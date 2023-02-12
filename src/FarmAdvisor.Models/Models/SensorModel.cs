@@ -26,6 +26,7 @@ namespace FarmAdvisor.Models.Models
         public double Altitude { get; set; }
 
         public State State { get; set; }
+        public Guid FieldId { get; set; }
 
     }
 

@@ -13,6 +13,22 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
     }
     public class SensorDto
     {
+
+        public SensorDto(Guid sensorId, string serialNo, DateTime lastCommunication, int batteryStatus, int optimalGDD, DateTime cuttingDateCaclculated, DateTime lastForecastDate, double @long, double lat, State state, Guid feildId)
+        {
+            SensorId = sensorId;
+            SerialNo = serialNo;
+            LastCommunication = lastCommunication;
+            BatteryStatus = batteryStatus;
+            OptimalGDD = optimalGDD;
+            CuttingDateCaclculated = cuttingDateCaclculated;
+            LastForecastDate = lastForecastDate;
+            Long = @long;
+            Lat = lat;
+            State = state;
+            FeildId = feildId;
+        }
+        
         [Key]
         public Guid SensorId { get; set; }
         public string? SerialNo { get; set; }
