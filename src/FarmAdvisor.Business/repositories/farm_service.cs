@@ -48,6 +48,7 @@ namespace FarmAdvisor.Business{
                 throw e;
             }
         }
+        
 
         // get all farms
         public async ValueTask<IEnumerable<Farm>> GetAllFarms(){
@@ -63,6 +64,7 @@ namespace FarmAdvisor.Business{
                 throw e;
             }
         }
+        
 
         //delete farm
         public async ValueTask<Farm> DeleteFarm(Guid farmId){
