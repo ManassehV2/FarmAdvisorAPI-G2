@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using FarmAdvisor.DataAccess.AzureTableStorage.Services;
 using FarmAdvisor.Services.WeatherApi;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,12 +30,8 @@ namespace FarmAdvisor.HttpFunctions
                 options.UseSqlServer(connectionString!, b => b.MigrationsAssembly(typeof(DataAccess.MSSQL.FarmAdvisorDbContext).Assembly.FullName)), ServiceLifetime.Transient);
             services.AddTransient<DataAccess.MSSQL.Abstractions.IUnitOfWork, DataAccess.MSSQL.Implementations.UnitOfWorkImpl>();
             services.AddScoped<IWeatherRemoteRepository, WeatherRemoteRepositoryImpl>();
-
-            services.AddScoped<Business.FarmService>();
-            services.AddScoped<Business.UserService>();
-            services.AddTransient<Business.FarmFieldService>();
-
-            services.AddHttpClient<IWeatherRemoteRepository>();
+            services.AddSingleton<IWeatherForecastStorage, WeatherForecastStorageImpl>();
+            services.AddScoped<IFetchingWeatherForecast, FetchingWeatherForecastImpl>();
 
         }
 
