@@ -4,6 +4,10 @@ namespace FarmAdvisor.Services.WeatherApi
 {
     public interface IWeatherRemoteRepository
     {
-        Task<WeatherForecastModel> GetForecastData(double latitude, double longitude);
+        Task<WeatherForecastModel> GetForecastData(
+            double latitude,
+            double longitude,
+            double altitude
+        );
     }
 }

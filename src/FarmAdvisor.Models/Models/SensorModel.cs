@@ -10,8 +10,10 @@ namespace FarmAdvisor.Models.Models
 
     
     }
+
     public class Sensor
     {
+
         public Guid SensorId { get; set; }
         public string? SerialNo { get; set; }
         public DateTime LastCommunication { get; set; }
@@ -21,6 +23,8 @@ namespace FarmAdvisor.Models.Models
         public DateTime LastForecastDate { get; set; }
         public double Long { get; set; }
         public double Lat { get; set; }
+        public double Altitude { get; set; }
+
         public State State { get; set; }
 
     }
