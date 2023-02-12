@@ -10,24 +10,10 @@ namespace FarmAdvisor.Models.Models
 
     
     }
+
     public class Sensor
     {
-        public Sensor() { }
-        public Sensor(Guid sensorId, string serialNo, DateTime lastCommunication, int batteryStatus, int optimalGDD, DateTime cuttingDateCaclculated, DateTime lastForecastDate, double @long, double lat, State state, Guid fieldId)
-        {
-            SensorId = sensorId;
-            SerialNo = serialNo;
-            LastCommunication = lastCommunication;
-            BatteryStatus = batteryStatus;
-            OptimalGDD = optimalGDD;
-            CuttingDateCaclculated = cuttingDateCaclculated;
-            LastForecastDate = lastForecastDate;
-            Long = @long;
-            Lat = lat;
-            State = state;
-            FieldId = fieldId;
 
-        }
         public Guid SensorId { get; set; }
         public string? SerialNo { get; set; }
         public DateTime LastCommunication { get; set; }
@@ -37,6 +23,8 @@ namespace FarmAdvisor.Models.Models
         public DateTime LastForecastDate { get; set; }
         public double Long { get; set; }
         public double Lat { get; set; }
+        public double Altitude { get; set; }
+
         public State State { get; set; }
         public Guid FieldId { get; set; }
 

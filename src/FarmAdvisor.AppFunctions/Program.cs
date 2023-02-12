@@ -4,10 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
-
-
-
 var host = new HostBuilder()
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
@@ -31,6 +27,5 @@ var host = new HostBuilder()
                 services.AddScoped<DeleteUser, DeleteUser>();*/
             })
             .Build();
-
 
 host.Run();
