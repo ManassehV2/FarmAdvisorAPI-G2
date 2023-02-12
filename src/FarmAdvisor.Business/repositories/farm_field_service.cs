@@ -1,6 +1,7 @@
 using FarmAdvisor.DataAccess.MSSQL.Abstractions;
 using FarmAdvisor.DataAccess.MSSQL.Dtos;
 using FarmAdvisor.Models.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FarmAdvisor.Business{
 
@@ -16,14 +17,13 @@ namespace FarmAdvisor.Business{
         // create farm field
         public async ValueTask<FarmFieldModel> CreateFarmField(FarmFieldModel farmField){
             try{
-                var farmFieldDto = new FarmFieldDto(farmField.Name, ((double)farmField.Altitude), farmField.Polygon, farmField.FarmId);
+                var farmFieldDto = new FarmFieldDto(farmField.Name, ((double)farmField.Altitude), farmField.FarmId);
                 var newField = await _unitOfWork.FarmFeildRepository.AddAsync(farmFieldDto);
                 _unitOfWork.SaveChanges();
                 return new FarmFieldModel(
                         newField.FarmId,
                         newField.Name,
                         (decimal)newField.Altitude,
-                        newField.Polygon,
                         newField.FarmId);
             }catch(Exception e){
                 throw e;
@@ -39,7 +39,6 @@ namespace FarmAdvisor.Business{
                     farmFieldDto.FieldId, 
                     farmFieldDto.Name, 
                     (decimal)farmFieldDto.Altitude, 
-                    farmFieldDto.Polygon, 
                     farmFieldDto.FarmId);
             }catch(Exception e){
                 throw e;
@@ -55,7 +54,6 @@ namespace FarmAdvisor.Business{
                         farmFieldDto.FieldId,
                         farmFieldDto.Name,
                         (decimal)farmFieldDto.Altitude, 
-                        farmFieldDto.Polygon, 
                         farmFieldDto.FarmId));
 
                 return farmFields;
@@ -72,7 +70,6 @@ namespace FarmAdvisor.Business{
                     farmFieldDto.FieldId,
                     farmFieldDto.Name,
                     (decimal)farmFieldDto.Altitude, 
-                    farmFieldDto.Polygon, 
                     farmFieldDto.FarmId);
                 _unitOfWork.FarmFeildRepository.DeleteAsync(farmFieldDto);
                 _unitOfWork.SaveChanges();
@@ -87,23 +84,42 @@ namespace FarmAdvisor.Business{
             try{
                 var field = await _unitOfWork.FarmFeildRepository.GetByIdAsync(fieldId);
                 var sensors = field.Sensors.Select(
-                    sensorDto => new Sensor(
-                        sensorDto.SensorId,
-                        sensorDto.SerialNo,
-                        sensorDto.LastCommunication,
-                        sensorDto.BatteryStatus,
-                        sensorDto.OptimalGDD,
-                        sensorDto.CuttingDateCaclculated,
-                        sensorDto.LastCommunication,
-                        sensorDto.Long,
-                        sensorDto.Lat,
-                        Models.Models.State.OK,
-                        sensorDto.FeildId
+                    newSensor => new Sensor(
+                        newSensor.SensorId,
+                        newSensor.SerialNo,
+                        newSensor.Long,
+                        newSensor.Lat,
+                        newSensor.OptimalGDD,
+                        newSensor.FeildId,
+                        newSensor.LastCuttingDate,
+                        newSensor.LastCommunication
+                        
                         )).ToList();
                 return sensors;
             }catch(Exception e){
                 throw e;
             }
+
         }
+
+
+        // get field by farm id
+        public async ValueTask<IEnumerable<FarmFieldModel>> GetFarmFieldsByFarmId(Guid farmId){
+            try{
+                var farmFieldDtos = await _unitOfWork.FarmFeildRepository.GetFarmFieldsByFarmId(farmId);
+                var farmFields = farmFieldDtos.Select(
+                    farmFieldDto => new FarmFieldModel(
+                        farmFieldDto.FieldId,
+                        farmFieldDto.Name,
+                        (decimal)farmFieldDto.Altitude, 
+                        farmFieldDto.FarmId));
+
+                return farmFields;
+            }catch(Exception e){
+                throw e;
+            }
+        }
+
+        
     }
 }

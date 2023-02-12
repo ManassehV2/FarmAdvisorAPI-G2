@@ -12,18 +12,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 {
     [DbContext(typeof(FarmAdvisorDbContext))]
-    [Migration("20230211095309_initialDb")]
-    partial class initialDb
+    [Migration("20230212115001_initial")]
+    partial class initial
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "6.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.FarmDto", b =>
                 {
@@ -31,16 +30,14 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("LatitudeNum")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("LongitudeNum")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Postcode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserId")
@@ -111,10 +108,10 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BatteryStatus")
+                    b.Property<int?>("BatteryStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CuttingDateCaclculated")
+                    b.Property<DateTime?>("CuttingDateCaclculated")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("FeildId")
@@ -123,7 +120,10 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<DateTime>("LastCommunication")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("LastForecastDate")
+                    b.Property<DateTime?>("LastCuttingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastForecastDate")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("Lat")
@@ -137,9 +137,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 
                     b.Property<string>("SerialNo")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("State")
-                        .HasColumnType("int");
 
                     b.HasKey("SensorId");
 
@@ -174,18 +171,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AuthId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

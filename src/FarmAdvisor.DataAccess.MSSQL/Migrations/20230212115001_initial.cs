@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 {
-    /// <inheritdoc />
-    public partial class initialDb : Migration
+    public partial class initial : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -16,10 +14,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AuthId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,10 +26,9 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                 columns: table => new
                 {
                     FarmId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Postcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LatitudeNum = table.Column<double>(type: "float", nullable: false),
+                    LongitudeNum = table.Column<double>(type: "float", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -97,13 +91,13 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     SensorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SerialNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastCommunication = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BatteryStatus = table.Column<int>(type: "int", nullable: false),
+                    BatteryStatus = table.Column<int>(type: "int", nullable: true),
                     OptimalGDD = table.Column<int>(type: "int", nullable: false),
-                    CuttingDateCaclculated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastForecastDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastCuttingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CuttingDateCaclculated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastForecastDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Long = table.Column<double>(type: "float", nullable: false),
                     Lat = table.Column<double>(type: "float", nullable: false),
-                    State = table.Column<int>(type: "int", nullable: false),
                     FeildId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -164,7 +158,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                 column: "FeildId");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

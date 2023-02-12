@@ -1,9 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FarmAdvisor.DataAccess.MSSQL.Dtos;
 
 namespace FarmAdvisor.DataAccess.MSSQL

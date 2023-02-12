@@ -13,11 +13,16 @@ namespace FarmAdvisor.Business{
         }
 
         //add farm
-        public void AddFarm(Farm farm){
+        public async ValueTask<Farm> AddFarm(Farm farm){
             try{
-                var farmDto = new FarmDto(farm.FarmId, farm.Name, farm.UserId, farm.Postcode, farm.City, farm.Country);
-                _unitOfWork.FarmRepository.AddAsync(farmDto);
-                _unitOfWork.SaveChanges();
+                var user = await _unitOfWork.UserRepository.GetByIdAsync(farm.UserId);
+                var farmDto = new FarmDto(farm.Name, farm.Latitude, farm.Longitude);
+                user.Farm = farmDto;
+                await _unitOfWork.FarmRepository.AddAsync(farmDto);
+                var createdFarm = await _unitOfWork.FarmRepository.GetByIdAsync(farmDto.FarmId);
+                var newFarm =  new Farm(createdFarm.FarmId, createdFarm.Name, createdFarm.LatitudeNum, createdFarm.LongitudeNum, createdFarm.User.UserId);
+                
+                return newFarm;
             }catch(Exception e){
                 throw e;
             }
@@ -27,11 +32,17 @@ namespace FarmAdvisor.Business{
         public async ValueTask<Farm> GetFarm(Guid farmId){
             try{
                 var farmDto = await _unitOfWork.FarmRepository.GetByIdAsync(farmId);
-                return new Farm(farmDto.FarmId, farmDto.Name, farmDto.Postcode, farmDto.City, farmDto.Country, farmDto.UserId,
-                 farmDto.FarmFeilds.Select(
-                    farmFieldDto => new FarmFieldModel(
-                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
-                        .ToList());
+                return new Farm(farmDto.FarmId, farmDto.Name, farmDto.LatitudeNum, farmDto.LongitudeNum,  farmDto.User.UserId);
+            }catch(Exception e){
+                throw e;
+            }
+        }
+
+        // get farm by user id
+        public async ValueTask<Farm> GetFarmByUserId(Guid userId){
+            try{
+                var farm = await _unitOfWork.FarmRepository.GetFarmByUserId(userId);
+                return new Farm(farm.FarmId, farm.Name, farm.LatitudeNum, farm.LongitudeNum, farm.User.UserId);
             }catch(Exception e){
                 throw e;
             }
@@ -43,7 +54,7 @@ namespace FarmAdvisor.Business{
                 var farmDto = await _unitOfWork.FarmRepository.GetByIdAsync(farmId);
                 return farmDto.FarmFeilds.Select(
                     farmFieldDto => new FarmFieldModel(
-                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId));
+                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.FarmId));
             }catch(Exception e){
                 throw e;
             }
@@ -53,33 +64,16 @@ namespace FarmAdvisor.Business{
         public async ValueTask<IEnumerable<Farm>> GetAllFarms(){
             try{
                 var farmDtos = await _unitOfWork.FarmRepository.GetAllAsync();
-                var farms = farmDtos.Select(farmDto => new Farm(farmDto.FarmId, farmDto.Name, farmDto.Postcode, farmDto.City, farmDto.Country, farmDto.UserId,
-                 farmDto.FarmFeilds.Select(
-                    farmFieldDto => new FarmFieldModel(
-                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
-                        .ToList()));
+                var farms = new List<Farm>();
+                farmDtos.ForEach(farmDto => farms.Add(new Farm(farmDto.FarmId, farmDto.Name, farmDto.LatitudeNum, farmDto.LongitudeNum, farmDto.User.UserId)));
                 return farms;
+
             }catch(Exception e){
                 throw e;
             }
         }
 
-        //delete farm
-        public async ValueTask<Farm> DeleteFarm(Guid farmId){
-            try{
-                var farmDto = await _unitOfWork.FarmRepository.GetByIdAsync(farmId);
-                var farm = new Farm(farmDto.FarmId, farmDto.Name, farmDto.Postcode, farmDto.City, farmDto.Country, farmDto.UserId,
-                 farmDto.FarmFeilds.Select(
-                    farmFieldDto => new FarmFieldModel(
-                        farmFieldDto.FieldId, farmFieldDto.Name, (decimal)farmFieldDto.Altitude, farmFieldDto.Polygon, farmFieldDto.FarmId))
-                        .ToList());
-                _unitOfWork.FarmRepository.DeleteAsync(farmDto);
-                _unitOfWork.SaveChanges();
-                return farm;
-            }catch(Exception e){
-                throw e;
-            }
-        }
+       
 
     }
 }

@@ -47,7 +47,7 @@ namespace FarmAdvisor.Services.WeatherApi
                 Dictionary<string, double> averageTemperatureOfCurrentSensor = AverageTemperatureOfEachSensor(
                     temperaturesWithDatesOfCurrentSensor);
             
-                curSensorWeatherData.SensorId = sensor!.SensorId;
+                curSensorWeatherData.SensorId = (Guid)sensor!.SensorId;
                 curSensorWeatherData.ForecastGDD = gddOfEachDayOfCurrentSensor;
                 curSensorWeatherData.ForecastTemperature = averageTemperatureOfCurrentSensor;
                 

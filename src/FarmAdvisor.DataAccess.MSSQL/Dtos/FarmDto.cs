@@ -5,29 +5,27 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
 {
     public class FarmDto
     {
+       
 
-        public FarmDto(Guid farmId, string? name, Guid userId, string? postcode, string? city, string? country)
+        public FarmDto( string? name, double latitudeNum, double longitudeNum )
         {
-            FarmId = farmId;
+            FarmId = Guid.NewGuid();
             Name = name;
-            UserId = userId;
-            Postcode = postcode;
-            City = city;
-            Country = country;
-            
+            LatitudeNum = latitudeNum;
+            LongitudeNum = longitudeNum;
+    
         }
+
         [Key]
         public Guid FarmId { get; set; }
-        public string? Name { get; set; }
-        public string? Postcode{ get; set; }
-        public string? City { get; set; }
-        public string? Country { get; set; }
-
+        public string Name { get; set; }
+        public double LatitudeNum { get; set; }
+        public double LongitudeNum { get; set; }
         // Navigation properties
          public List<FarmFieldDto>? FarmFeilds { get; set; }
 
-         [ForeignKey("User")]
-         public Guid UserId { get; set; }
+        [ForeignKey("UserId")]
+        public Guid UserId { get; set; }
          public UserDto? User { get; set; }
          public List<NotificationDto>? Notifications { get; set; }
         

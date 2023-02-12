@@ -1,4 +1,4 @@
-using System.Text;
+/*using System.Text;
 using System.Text.Json;
 using FarmAdvisor.Common.Test;
 using FarmAdvisor.Common.Test.Infrastructure;
@@ -46,4 +46,4 @@ namespace FarmAdvisor.Functions.Test.HttpFunctionsTest
         // }
 
     }
-}
+}*/

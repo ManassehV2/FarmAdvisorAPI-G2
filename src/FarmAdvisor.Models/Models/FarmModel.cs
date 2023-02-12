@@ -2,22 +2,18 @@ namespace FarmAdvisor.Models.Models
 {
     public class Farm
     {
-        
-        public Farm(Guid farmId, string name, string postcode, string city, string country, Guid userId, List<FarmFieldModel>? farmFeilds)
-        {
-            FarmId = farmId;
+        public Farm(Guid? farmId, string name, double latitude, double longitude, Guid userId){
+            FarmId = (Guid)(farmId != null ? farmId : Guid.NewGuid());
             Name = name;
-            Postcode = postcode;
-            City = city;
-            Country = country;
+            Latitude = latitude;
+            Longitude = longitude;
             UserId = userId;
-            FarmFeilds = farmFeilds;
         }
+        
         public Guid FarmId { get; set; }
         public string? Name { get; set; }
-        public string? Postcode{ get; set; }
-        public string? City { get; set; }
-        public string? Country { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public Guid UserId { get; set; }
         public List<FarmFieldModel>? FarmFeilds { get; set; }
     }

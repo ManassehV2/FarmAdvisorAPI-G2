@@ -10,11 +10,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.3.0" OutputItemType="Analyzer" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.6.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -29,8 +29,9 @@
     <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FarmAdvisor.Business\FarmAdvisor.Business.csproj" />
+    <ProjectReference Include="..\FarmAdvisor.DataAccess.MSSQL\FarmAdvisor.DataAccess.MSSQL.csproj" />
     <ProjectReference Include="..\FarmAdvisor.Models\FarmAdvisor.Models.csproj" />
+    <ProjectReference Include="..\FarmAdvisor.Business\FarmAdvisor.Business.csproj" />
   </ItemGroup>
   
 </Project>
