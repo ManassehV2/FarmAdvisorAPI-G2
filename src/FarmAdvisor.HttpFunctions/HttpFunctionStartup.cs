@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using FarmAdvisor.Services.WeatherApi;
-
+using Microsoft.EntityFrameworkCore;
 
 [assembly: FunctionsStartup(typeof(FarmAdvisor.HttpFunctions.HttpFunctionStartup))]
 
@@ -12,11 +12,29 @@ namespace FarmAdvisor.HttpFunctions
 {
     public class HttpFunctionStartup : FunctionsStartup
     {
-        public static void ConfigureServices(IServiceCollection services)
+       
+        public  void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient<IWeatherRemoteRepository>();
+            var ConfigBuilder = new ConfigurationBuilder();
+            ConfigBuilder.AddJsonFile("local.settings.json", optional: false);
+            ConfigBuilder.AddEnvironmentVariables();
+            var config = ConfigBuilder.Build();
+            
+
+
+
+            var  connectionString = "Data Source=LAPTOP-7S5M2IVT;Initial Catalog=FarmAdvisorDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+           
+            services.AddDbContext<DataAccess.MSSQL.FarmAdvisorDbContext>(options =>
+                options.UseSqlServer(connectionString!, b => b.MigrationsAssembly(typeof(DataAccess.MSSQL.FarmAdvisorDbContext).Assembly.FullName)), ServiceLifetime.Transient);
+            services.AddTransient<DataAccess.MSSQL.Abstractions.IUnitOfWork, DataAccess.MSSQL.Implementations.UnitOfWorkImpl>();
             services.AddScoped<IWeatherRemoteRepository, WeatherRemoteRepositoryImpl>();
 
+            services.AddScoped<Business.FarmService>();
+            services.AddScoped<Business.UserService>();
+            services.AddTransient<Business.FarmFieldService>();
+
+            services.AddHttpClient<IWeatherRemoteRepository>();
 
         }
 
