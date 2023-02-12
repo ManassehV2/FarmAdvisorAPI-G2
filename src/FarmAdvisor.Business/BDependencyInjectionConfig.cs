@@ -13,7 +13,9 @@ namespace FarmAdvisor.Business
             services.AddScoped<FarmService, FarmService>();
             services.AddScoped<UserService, UserService>();
             services.AddScoped<FarmFieldService, FarmFieldService>();
+            
             return services;
+            
             
         }
     }
