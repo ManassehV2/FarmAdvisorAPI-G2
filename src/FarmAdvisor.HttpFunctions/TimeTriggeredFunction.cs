@@ -18,10 +18,9 @@ public class TimeTriggeredFunction
     }
     
     [FunctionName("TimeTriggeredFunction")]
-    public async Task RunAsync([TimerTrigger("0 0 5 * * *")] TimerInfo myTimer, ILogger log)
+    public async Task RunAsync([TimerTrigger("0 0 5 * * *")] TimerInfo myTimer)
     {
         List<Sensor> sensors = new List<Sensor>();
-        log.LogInformation($"C# Timer trigger function executed at: {DateTime.UtcNow}");
         await _weatherForecast.SensorWeatherForecast(sensors);
 
     }

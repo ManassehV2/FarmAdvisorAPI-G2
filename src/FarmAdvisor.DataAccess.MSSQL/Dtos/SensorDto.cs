@@ -3,43 +3,36 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarmAdvisor.DataAccess.MSSQL.Dtos
 {
-    public enum State
-    {
-        
-        OK = 0,
-        BATTERYLOW = 1,
-
     
-    }
     public class SensorDto
     {
 
-        public SensorDto(Guid sensorId, string serialNo, DateTime lastCommunication, int batteryStatus, int optimalGDD, DateTime cuttingDateCaclculated, DateTime lastForecastDate, double @long, double lat, State state, Guid feildId)
+        
+
+        public SensorDto(string serialNo,  double @long, double lat,int optimalGDD ,Guid feildId, DateTime lastCuttingDate, DateTime lastCommunication)
         {
-            SensorId = sensorId;
+            SensorId = new Guid();
             SerialNo = serialNo;
-            LastCommunication = lastCommunication;
-            BatteryStatus = batteryStatus;
-            OptimalGDD = optimalGDD;
-            CuttingDateCaclculated = cuttingDateCaclculated;
-            LastForecastDate = lastForecastDate;
             Long = @long;
             Lat = lat;
-            State = state;
+            OptimalGDD = optimalGDD;
             FeildId = feildId;
+            LastCuttingDate = lastCuttingDate;
+            LastCommunication = lastCommunication;
+
         }
         
         [Key]
         public Guid SensorId { get; set; }
-        public string? SerialNo { get; set; }
+        public string SerialNo { get; set; }
         public DateTime LastCommunication { get; set; }
-        public int BatteryStatus { get; set; }
+        public int? BatteryStatus { get; set; }
         public int OptimalGDD { get; set; }
-        public DateTime CuttingDateCaclculated { get; set; }
-        public DateTime LastForecastDate { get; set; }
+        public DateTime LastCuttingDate { get; set; }
+        public DateTime? CuttingDateCaclculated { get; set; }
+        public DateTime? LastForecastDate { get; set; }
         public double Long { get; set; }
         public double Lat { get; set; }
-        public State State { get; set; }
 
         // Navigation Properties        
         [ForeignKey("Feild")]
@@ -49,3 +42,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
 
     }
 }
+
+
+

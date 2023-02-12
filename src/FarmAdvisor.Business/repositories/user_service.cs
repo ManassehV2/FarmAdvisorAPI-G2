@@ -1,6 +1,7 @@
 using FarmAdvisor.Models.Models;
 using FarmAdvisor.DataAccess.MSSQL.Dtos;
 using FarmAdvisor.DataAccess.MSSQL.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FarmAdvisor.Business
 {
@@ -16,10 +17,10 @@ namespace FarmAdvisor.Business
         public async ValueTask<User> CreateUser(User user)
         {
             try{
-                var userDto = new UserDto( user.Name, user.Email, user.Password);
+                var userDto = new UserDto(user.Phone);
                 var newUser = await _unitOfWork.UserRepository.AddAsync(userDto);
                 _unitOfWork.SaveChanges();
-                return new User(newUser.UserId, newUser.Name, newUser.Email, newUser.Password, newUser.AuthId);
+                return new User(newUser.UserId, newUser.Phone);
             }catch(Exception e){
                 throw e;
             }
@@ -30,7 +31,7 @@ namespace FarmAdvisor.Business
         {
             try{
                 var userDto =  await _unitOfWork.UserRepository.GetByIdAsync(userId);
-                return new User(userDto.UserId, userDto.Name, userDto.Email, userDto.Password, userDto.AuthId);
+                return new User(userDto.UserId, userDto.Phone);
             }
             catch(Exception e){
                 throw e;
@@ -42,8 +43,8 @@ namespace FarmAdvisor.Business
         {
             try{
                 var userDto = await _unitOfWork.UserRepository.GetByIdAsync(userId);
-                var user = new User(userDto.UserId, userDto.Name, userDto.Email, userDto.Password, userDto.AuthId);
-                _unitOfWork.UserRepository.DeleteAsync(userDto);
+                var user = new User(userDto.UserId, userDto.Phone);
+                await _unitOfWork.UserRepository.DeleteAsync(userDto);
                 _unitOfWork.SaveChanges();
                 return user;
             }
@@ -53,11 +54,13 @@ namespace FarmAdvisor.Business
         }
 
         // get all users
+        
         public async ValueTask<IEnumerable<User>> GetAllUsers()
         {
             try{
                 var userDtos = await _unitOfWork.UserRepository.GetAllAsync();
-                var users = userDtos.Select(userDto => new User(userDto.UserId, userDto.Name, userDto.Email, userDto.Password, userDto.AuthId));
+                var users = userDtos.Select(
+                    userDto => new User(userDto.UserId, userDto.Phone));
                 return users;
             }
             catch(Exception e){
