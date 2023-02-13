@@ -2,7 +2,7 @@ namespace FarmAdvisor.Models.Models
 {
     public class BoardInfoModel
     {
-        public BoardInfoModel(Guid? fieldId, FarmFieldModel fieldModel, List<Sensor> sensors, Dictionary<string, List<double>> weatherForecast, Dictionary<string, double> statistics)
+        public BoardInfoModel(Guid? fieldId, FarmFieldModel fieldModel, List<Sensor> sensors, Dictionary<string, List<double>> weatherForecast, Dictionary<string, List<double>> statistics)
         {
             FieldId = fieldId;
             FieldModel = fieldModel;
@@ -16,8 +16,8 @@ namespace FarmAdvisor.Models.Models
      
         public List<Sensor> Sensors { get; set; }
         
-        public Dictionary<string, List<double>>? WeatherForecast { get; set; }
-        public Dictionary<string, double>? Statistics { get; set; }
+        public Dictionary<string, List<double>> WeatherForecast { get; set; }
+        public Dictionary<string, List<double>> Statistics { get; set; }
 
     }
 }
