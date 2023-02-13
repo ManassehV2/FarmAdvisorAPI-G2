@@ -49,6 +49,10 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     FieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Altitude = table.Column<double>(type: "float", nullable: false),
+                    GDDGoal = table.Column<int>(type: "int", nullable: false),
+                    CuttingDateEstimated = table.Column<int>(type: "int", nullable: false),
+                    CurrentGDD = table.Column<int>(type: "int", nullable: false),
+                    LastSensorResetDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FarmId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -97,6 +101,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     LastForecastDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Long = table.Column<double>(type: "float", nullable: false),
                     Lat = table.Column<double>(type: "float", nullable: false),
+                    CurrentGDD = table.Column<int>(type: "int", nullable: false),
                     FeildId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -148,8 +153,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_SensorResetDates_SensorId",
                 table: "SensorResetDates",
-                column: "SensorId",
-                unique: true);
+                column: "SensorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sensors_FeildId",

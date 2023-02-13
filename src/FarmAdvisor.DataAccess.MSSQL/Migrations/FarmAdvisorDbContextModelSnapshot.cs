@@ -58,8 +58,20 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<double>("Altitude")
                         .HasColumnType("float");
 
+                    b.Property<int>("CurrentGDD")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CuttingDateEstimated")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("FarmId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("GDDGoal")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastSensorResetDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -104,6 +116,9 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("BatteryStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentGDD")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CuttingDateCaclculated")
@@ -155,8 +170,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 
                     b.HasKey("ResetDateId");
 
-                    b.HasIndex("SensorId")
-                        .IsUnique();
+                    b.HasIndex("SensorId");
 
                     b.ToTable("SensorResetDates");
                 });
@@ -223,8 +237,8 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
             modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorResetDateDto", b =>
                 {
                     b.HasOne("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorDto", "Sensor")
-                        .WithOne("ResetDate")
-                        .HasForeignKey("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorResetDateDto", "SensorId")
+                        .WithMany("ResetDate")
+                        .HasForeignKey("SensorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
