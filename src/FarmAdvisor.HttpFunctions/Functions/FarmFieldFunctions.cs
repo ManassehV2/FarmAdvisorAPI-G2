@@ -65,18 +65,6 @@ namespace FarmAdvisor.HttpFunctions.Functions
                      DateTime.Now
                     
                 );
-                var sensor = new Sensor(
-                    Guid.NewGuid(),
-                    String.Format("serial{0}", i.ToString()),
-                   38 + i / 10,
-                     8.5 + i / 10,
-                     300 + i,
-                    Guid.NewGuid(),
-                     DateTime.Now,
-                     DateTime.Now
-                    
-                );
-            
                 sensors.Add(sensor);
             }
             
