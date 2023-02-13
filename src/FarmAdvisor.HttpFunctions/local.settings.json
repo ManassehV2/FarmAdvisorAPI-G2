@@ -1,6 +1,6 @@
 {
   "connectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=farmApi;User Id=sa;Password=Eyob@10541797;Encrypt=False;"
+    "DefaultConnection": "Server=localhost;Database=farmDatabase;User Id=sa;Password=Eyob@10541797;Encrypt=False;"
   },
   "IsEncrypted": false,
   "Values": {
