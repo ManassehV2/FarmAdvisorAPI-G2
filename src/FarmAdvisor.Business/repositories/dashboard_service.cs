@@ -78,5 +78,50 @@ namespace FarmAdvisor.Business
                 throw e;
             }
         }
+
+        public async ValueTask<Dictionary<string, double>> GetDashboardStatistics(Guid fieldId, string startDate, string endDate){
+            try{
+                var farmFieldDto = await _unitOfWork.FarmFeildRepository.GetByIdAsync(fieldId);
+                var sensorDtos = await _unitOfWork.SensorRepository.GetSensorByFieldId(fieldId);
+                
+                var sensors = sensorDtos.Select(
+                    newSensor => new Sensor(
+                        newSensor.SensorId,
+                        newSensor.SerialNo,
+                        newSensor.Long,
+                        newSensor.Lat,
+                        newSensor.OptimalGDD,
+                        newSensor.FeildId,
+                        newSensor.LastCuttingDate,
+                        newSensor.LastCommunication
+                    )
+                );
+                List<Sensor> sensorsData = sensors.ToList();
+                Dictionary<string, double> statData = new Dictionary<string, double>();
+                
+                
+                    string[] beginDate = startDate.Split("-");
+                    string[] finalDate = endDate.Split("-");
+                    int startday = Convert.ToInt32(beginDate[2]);
+                    int endday = Convert.ToInt32(finalDate[2]);
+                    string month = beginDate[1];
+                    string year = beginDate[0];
+                    Sensor sensor = sensorsData[0];
+                    
+                    for (int i = startday; i <= endday; i++)
+                    {
+                        string d = i.ToString();
+                        string date = year + "-" + month + "-" + d;
+                        var result = await _weatherForecast.GetEntityAsync(sensor.SensorId.ToString(), date);
+
+                        statData.Add(result.RowKey, result.calculatedTemperature);
+                    }
+
+                    return statData;
+
+            }catch(Exception e){
+                throw e;
+            }
+        }
     }
 }

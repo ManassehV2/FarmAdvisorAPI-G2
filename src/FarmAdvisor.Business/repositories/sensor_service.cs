@@ -88,8 +88,5 @@ namespace FarmAdvisor.Business{
                 throw e;
             }
         }
-
-    
-
     }
 }
