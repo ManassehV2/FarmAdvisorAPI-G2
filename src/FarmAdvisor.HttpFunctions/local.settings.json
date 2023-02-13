@@ -1,6 +1,6 @@
 {
   "connectionStrings": {
-    "DefaultConnection": "Data Source=LAPTOP-7S5M2IVT;Initial Catalog=FarmAdvisor1;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False"
+    "DefaultConnection": "Data Source=LAPTOP-EFKNA8TM\\SQLEXPRESS;Initial Catalog=farmAdvisor;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False"
   },
   "IsEncrypted": false,
   "Values": {

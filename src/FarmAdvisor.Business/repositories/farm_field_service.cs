@@ -28,7 +28,7 @@ namespace FarmAdvisor.Business{
                 var newField = await _unitOfWork.FarmFeildRepository.AddAsync(farmFieldDto);
                 _unitOfWork.SaveChanges();
                 return new FarmFieldModel(
-                        newField.FarmId,
+                        newField.FieldId,
                         newField.Name,
                         (decimal)newField.Altitude,
                         newField.FarmId);
