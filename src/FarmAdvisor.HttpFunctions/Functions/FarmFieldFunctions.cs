@@ -54,12 +54,12 @@ namespace FarmAdvisor.HttpFunctions.Functions
             List<Sensor> sensors= new List<Sensor>();
 
             var sensor = new Sensor(
-                new Guid("7e9a7936-1008-4a33-d7ad-08db0dbde13e"),
+                new Guid("c97582a7-11b9-4c45-7349-08db0dfb1b92"),
                 "qwertyuiop12",
                 38 + 1 / 10,
                 8.5 + 1 / 10,
                 300 + 1,
-                Guid.NewGuid(),
+                new Guid("3cf5bb7b-7ec6-438a-ac07-051aca8c6faa"),
                 DateTime.Now,
                 DateTime.Now);
             sensors.Add(sensor);

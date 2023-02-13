@@ -49,4 +49,41 @@ public class DashBoardFunction
             return new BadRequestObjectResult(ex.Message);
         }
     }
+    
+    // [FunctionName("GetDashboardStatistics")]
+    // [OpenApiOperation(operationId: "GetStatistics", tags: new[] { "FarmFields" }, Summary = "Gets all information for the dashboard statistics", Description = "Gets all information of a field.", Visibility = OpenApiVisibilityType.Important)]
+    // [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
+    // [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(Dictionary<string, double>), Description = "Fetch all information")]
+    // [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid ID supplied", Description = "Invalid ID supplied")]
+    // public async Task<IActionResult> GetDashboardStatistics(
+    //     [HttpTrigger(AuthorizationLevel.Function, "get", Route = "farms/dashboard/stat/{fieldId}")] HttpRequest req, Guid fieldId)
+    // {
+    //     try{
+    //         var result = await _dashboardService.GetDashboardStatistics(fieldId, req.Form["startDate"], req.Form["endDate"]);
+    //         return new OkObjectResult(result);
+    //     }catch(Exception ex){
+    //         return new BadRequestObjectResult(ex.Message);
+    //     }
+    // }
+    [FunctionName("GetDashboardStatistics")]
+    [OpenApiOperation(operationId: "GetStatistics", tags: new[] { "FarmFields" }, Summary = "Gets all information for the dashboard statistics", Description = "Gets all information of a field.", Visibility = OpenApiVisibilityType.Important)]
+    [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
+    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(Dictionary<string, double>), Description = "Fetch all information")]
+    [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid ID supplied", Description = "Invalid ID supplied")]
+    public async Task<IActionResult> GetDashboardStatistics(
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "farms/dashboard/stat/{fieldId}")] HttpRequest req, Guid fieldId)
+    {
+        try
+        {
+            string startDate = req.Query["startDate"];
+            string endDate = req.Query["endDate"];
+            var result = await _dashboardService.GetDashboardStatistics(fieldId, startDate, endDate);
+            return new JsonResult(result);
+        }
+        catch(Exception ex)
+        {
+            return new BadRequestObjectResult(ex.Message);
+        }
+    }
+
 }
