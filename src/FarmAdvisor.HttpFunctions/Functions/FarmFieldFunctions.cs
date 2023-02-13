@@ -48,11 +48,23 @@ namespace FarmAdvisor.HttpFunctions.Functions
         )
         {
 
+
             Console.WriteLine("_______________________response is__________");
             
             List<Sensor> sensors= new List<Sensor>();
             foreach(var i in Enumerable.Range(1,10))
             {
+                var sensor = new Sensor(
+                    Guid.NewGuid(),
+                    String.Format("serial{0}", i.ToString()),
+                   38 + i / 10,
+                     8.5 + i / 10,
+                     300 + i,
+                    Guid.NewGuid(),
+                     DateTime.Now,
+                     DateTime.Now
+                    
+                );
                 var sensor = new Sensor(
                     Guid.NewGuid(),
                     String.Format("serial{0}", i.ToString()),
