@@ -14,7 +14,7 @@ namespace FarmAdvisor.Models.Models
 
         }
 
-        public DateTime TimeStamp { get; set; }
+        public DateTime TimeStamp  { get; set; }
     }
 }
 
