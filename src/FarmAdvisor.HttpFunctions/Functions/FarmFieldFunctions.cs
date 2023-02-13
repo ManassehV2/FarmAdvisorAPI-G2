@@ -116,7 +116,22 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 return new BadRequestObjectResult(ex.Message);
             }
         }
-
+        
+        [FunctionName("DeleteFarmFieldsByFarmId")]
+        [OpenApiOperation(operationId: "DeleteFarmField", tags: new[] { "FarmFields" }, Summary = "Gets all fields in a farm.", Description = "Gets all fields in a farm.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(FarmFieldModel), Description = "List of fields in a farm")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid ID supplied", Description = "Invalid ID supplied")]
+        public async Task<IActionResult> DeleteFarmFieldsByFarmId(
+            [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "farms/farmFields/{farmId}")] HttpRequest req, Guid farmId)
+        {
+            try{
+                var result = await _farmFieldService.DeleteFarmField(farmId);
+                return new OkObjectResult(result);
+            }catch(Exception ex){
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
 
     }
 }
