@@ -75,7 +75,30 @@ namespace FarmAdvisor.HttpFunctions.Functions
             }catch(Exception ex){
                 return new BadRequestObjectResult(ex.Message);
             }
-        }       
+        }
+
+
+        [FunctionName("ResetSensorDate")]
+        [OpenApiOperation(operationId: "SensorById", tags: new[] { "SensorById" }, Summary = "SensorById", Description = "SensorById", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(ResetSensorDateModel), Description = "setSensorDateId")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid ID supplied", Description = "Invalid ID supplied")]
+        public async Task<IActionResult> ResetSensorDate(
+             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "sensors/reset/{sensorId}")] HttpRequest req, Guid sensorId)
+        {
+            try
+            {
+                Console.WriteLine("Function is called");
+                var result = await _sensorService.ResetSensor(sensorId, DateTime.Parse(req.Form["sensorDate"]));
+                Console.WriteLine("Function excuted");
+                return new OkObjectResult(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
 
     }
 }
