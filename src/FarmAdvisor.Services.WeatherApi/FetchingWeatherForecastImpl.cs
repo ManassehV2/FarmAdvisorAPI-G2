@@ -31,7 +31,7 @@ namespace FarmAdvisor.Services.WeatherApi
                 await _weatherRepository.GetForecastData(
                     sensor.Long,
                     sensor.Lat,
-                    sensor.Altitude
+                    300
                 );
             Console.WriteLine("-----------------------api response----------------");
             Console.WriteLine(weatherForecastOfCurrentSensor);
@@ -53,7 +53,7 @@ namespace FarmAdvisor.Services.WeatherApi
             Console.WriteLine("-----------------------averageTemperatureOfCurrentSensor----------------");
             Console.WriteLine(averageTemperatureOfCurrentSensor);
             
-            curSensorWeatherData.SensorId = sensor!.SensorId;
+            curSensorWeatherData.SensorId = (Guid)sensor!.SensorId;
             curSensorWeatherData.ForecastGDD = gddOfEachDayOfCurrentSensor;
             curSensorWeatherData.ForecastTemperature = averageTemperatureOfCurrentSensor;
         
