@@ -53,6 +53,7 @@ namespace FarmAdvisor.HttpFunctions
             services.AddScoped<FarmService>();
             services.AddScoped<UserService>();
             services.AddScoped<SensorService>();
+            services.AddScoped<DashboardService>();
 
         }
 

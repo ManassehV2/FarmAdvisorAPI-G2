@@ -52,23 +52,20 @@ namespace FarmAdvisor.HttpFunctions.Functions
             Console.WriteLine("_______________________response is__________");
             
             List<Sensor> sensors= new List<Sensor>();
-            foreach(var i in Enumerable.Range(1,10))
-            {
-                var sensor = new Sensor(
-                    Guid.NewGuid(),
-                    String.Format("serial{0}", i.ToString()),
-                   38 + i / 10,
-                     8.5 + i / 10,
-                     300 + i,
-                    Guid.NewGuid(),
-                     DateTime.Now,
-                     DateTime.Now
-                    
-                );
-                sensors.Add(sensor);
-            }
+
+            var sensor = new Sensor(
+                new Guid("7e9a7936-1008-4a33-d7ad-08db0dbde13e"),
+                "qwertyuiop12",
+                38 + 1 / 10,
+                8.5 + 1 / 10,
+                300 + 1,
+                Guid.NewGuid(),
+                DateTime.Now,
+                DateTime.Now);
+            sensors.Add(sensor);
             
-            var res = await _weatherForecast.SensorWeatherForecast(sensors);
+            
+            var res = await _weatherForecast.SensorWeatherForecast(sensors, 12);
             foreach (var kvp in res)
             {
                 foreach (var val in kvp.ForecastGDD)
