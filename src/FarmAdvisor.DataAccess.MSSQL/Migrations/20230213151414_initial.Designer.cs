@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 {
     [DbContext(typeof(FarmAdvisorDbContext))]
-    [Migration("20230213151414_initial")]
-    partial class initial
+    [Migration("20230213103515_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
