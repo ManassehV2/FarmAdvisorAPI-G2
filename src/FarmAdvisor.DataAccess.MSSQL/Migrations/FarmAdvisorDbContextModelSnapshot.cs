@@ -65,9 +65,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Polygon")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("FieldId");
 
                     b.HasIndex("FarmId");
@@ -118,7 +115,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<DateTime>("LastCommunication")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("LastCuttingDate")
+                    b.Property<DateTime>("LastCuttingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastForecastDate")
@@ -134,6 +131,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SerialNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SensorId");

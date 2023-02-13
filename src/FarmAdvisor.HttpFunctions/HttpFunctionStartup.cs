@@ -2,6 +2,7 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Net.Http;
 using FarmAdvisor.Business;
 using FarmAdvisor.DataAccess.AzureTableStorage.Services;
@@ -23,7 +24,8 @@ namespace FarmAdvisor.HttpFunctions
         public  void ConfigureServices(IServiceCollection services)
         {
             var ConfigBuilder = new ConfigurationBuilder();
-            ConfigBuilder.AddJsonFile("local.settings.json", optional: false);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "local.settings.json");
+            ConfigBuilder.AddJsonFile(path, optional: false);
             ConfigBuilder.AddEnvironmentVariables();
             var config = ConfigBuilder.Build();
             var connectionString = config.GetConnectionString("DefaultConnection");
@@ -39,6 +41,7 @@ namespace FarmAdvisor.HttpFunctions
             services.AddSingleton<IWeatherForecastStorage, WeatherForecastStorageImpl>();
             services.AddScoped<IFetchingWeatherForecast, FetchingWeatherForecastImpl>();
             services.AddScoped<FarmFieldService>();
+            services.AddScoped<UserService>();
 
         }
 

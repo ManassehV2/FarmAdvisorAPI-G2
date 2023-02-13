@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 {
     [DbContext(typeof(FarmAdvisorDbContext))]
-    [Migration("20230212115001_initial")]
-    partial class initial
+    [Migration("20230213103515_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,9 +67,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Polygon")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("FieldId");
 
                     b.HasIndex("FarmId");
@@ -120,7 +117,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<DateTime>("LastCommunication")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("LastCuttingDate")
+                    b.Property<DateTime>("LastCuttingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastForecastDate")
@@ -136,6 +133,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SerialNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SensorId");

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,7 +49,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     FieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Altitude = table.Column<double>(type: "float", nullable: false),
-                    Polygon = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FarmId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -89,11 +88,11 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                 columns: table => new
                 {
                     SensorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SerialNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SerialNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastCommunication = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BatteryStatus = table.Column<int>(type: "int", nullable: true),
                     OptimalGDD = table.Column<int>(type: "int", nullable: false),
-                    LastCuttingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastCuttingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CuttingDateCaclculated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastForecastDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Long = table.Column<double>(type: "float", nullable: false),
