@@ -8,6 +8,7 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
     {
          public   SensorResetDateRepositoryImpl (FarmAdvisorDbContext context) :  base (context)
         {
+
         }
     }
 }
