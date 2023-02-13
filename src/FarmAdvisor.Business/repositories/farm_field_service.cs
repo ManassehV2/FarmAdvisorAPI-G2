@@ -19,7 +19,12 @@ namespace FarmAdvisor.Business{
         // create farm field
         public async ValueTask<FarmFieldModel> CreateFarmField(FarmFieldModel farmField){
             try{
+                // var farm = await _unitOfWork.FarmRepository.GetByIdAsync(farmField.FarmId);
                 var farmFieldDto = new FarmFieldDto(farmField.Name, ((double)farmField.Altitude), farmField.FarmId);
+                // if(farm.FarmFeilds == null)
+                //     farm.FarmFeilds = new List<FarmFieldDto>();
+                // farm.FarmFeilds.Add(farmFieldDto);
+                // await _unitOfWork.FarmRepository.UpdateAsync(farm);
                 var newField = await _unitOfWork.FarmFeildRepository.AddAsync(farmFieldDto);
                 _unitOfWork.SaveChanges();
                 return new FarmFieldModel(

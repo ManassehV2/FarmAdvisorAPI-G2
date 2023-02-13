@@ -7,13 +7,9 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using FarmAdvisor.Models.Models;
 using FarmAdvisor.Business;
-using FarmAdvisor.DataAccess.MSSQL.Abstractions;
-using FarmAdvisor.DataAccess.MSSQL.Implementations;
-using System.IO;
 using System;
 
 namespace FarmAdvisor.HttpFunctions.Functions
@@ -24,7 +20,7 @@ namespace FarmAdvisor.HttpFunctions.Functions
 
         public UserFunctions( UserService userService)
         {
-            _userService = userService;
+            _userService = userService  ;
         }
         
         [FunctionName("CreateUser")]
@@ -41,6 +37,7 @@ namespace FarmAdvisor.HttpFunctions.Functions
 
         }
 
+
         [FunctionName("GetUsers")]
         [OpenApiOperation(operationId: "CreateUser", tags: new[] { "User" }, Summary = "create new user", Description = "create new user.", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
@@ -51,8 +48,8 @@ namespace FarmAdvisor.HttpFunctions.Functions
         {
                 var result = await _userService.GetAllUsers();
                 return new OkObjectResult(result);
-
         }
+
 
         [FunctionName("GetUserById")]
         [OpenApiOperation(operationId: "CreateUser", tags: new[] { "User" }, Summary = "get user by id", Description = "get user by id", Visibility = OpenApiVisibilityType.Important)]

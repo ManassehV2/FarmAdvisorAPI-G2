@@ -11,6 +11,7 @@ using FarmAdvisor.DataAccess.MSSQL.Abstractions;
 using FarmAdvisor.DataAccess.MSSQL.Implementations;
 using FarmAdvisor.Services.WeatherApi;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 // using Microsoft.EntityFrameworkCore;
 
@@ -23,25 +24,35 @@ namespace FarmAdvisor.HttpFunctions
        
         public  void ConfigureServices(IServiceCollection services)
         {
-            var ConfigBuilder = new ConfigurationBuilder();
+            
+
+            // local.settings access config
             var path = Path.Combine(Directory.GetCurrentDirectory(), "local.settings.json");
+            var ConfigBuilder = new ConfigurationBuilder();
             ConfigBuilder.AddJsonFile(path, optional: false);
             ConfigBuilder.AddEnvironmentVariables();
             var config = ConfigBuilder.Build();
-            var connectionString = config.GetConnectionString("DefaultConnection");
-
-
-
-            // var  connectionString = "Data Source=LAPTOP-7S5M2IVT;Initial Catalog=FarmAdvisorDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-           
+            var connectionString = config.GetConnectionString("DefaultConnection"); 
+            
+            // DataAccess dependencies
             services.AddDbContext<FarmAdvisorDbContext>(options =>
-            options.UseSqlServer(connectionString!, b => b.MigrationsAssembly(typeof(DataAccess.MSSQL.FarmAdvisorDbContext).Assembly.FullName)), ServiceLifetime.Transient);
+            options.UseSqlServer(connectionString!, 
+                                b => b.MigrationsAssembly(typeof(FarmAdvisorDbContext).Assembly.FullName)), 
+                                ServiceLifetime.Transient);
             services.AddScoped<IUnitOfWork, UnitOfWorkImpl>();
+
+            // External Api dependencies
             services.AddScoped<IWeatherRemoteRepository, WeatherRemoteRepositoryImpl>();
-            services.AddSingleton<IWeatherForecastStorage, WeatherForecastStorageImpl>();
             services.AddScoped<IFetchingWeatherForecast, FetchingWeatherForecastImpl>();
+
+            // Azure table dependencies
+            services.AddSingleton<IWeatherForecastStorage, WeatherForecastStorageImpl>();
+            
+            // Business dependenies
             services.AddScoped<FarmFieldService>();
+            services.AddScoped<FarmService>();
             services.AddScoped<UserService>();
+            services.AddScoped<SensorService>();
 
         }
 
