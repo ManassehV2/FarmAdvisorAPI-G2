@@ -97,10 +97,10 @@ namespace FarmAdvisor.Business{
                  try
                  {   
                      var newSensor = await _unitOfWork.SensorRepository.GetByIdAsync(sensorId);
-                     var sensorResetDate = new SensorResetDateDto(null, newDate, sensorId);
+                     var sensorResetDate = new SensorResetDateDto(new Guid(), newDate, sensorId);
                      await _unitOfWork.SensorResetDateRepository.AddAsync(sensorResetDate);
                      newSensor.LastCuttingDate = newDate;
-                Console.WriteLine("creating sensor");
+                     Console.WriteLine("creating sensor");
                      var resetedSensorDate = new ResetSensorDateModel(newDate);
                      _unitOfWork.SaveChanges();
                   
