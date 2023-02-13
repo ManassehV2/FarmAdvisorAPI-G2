@@ -170,8 +170,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
 
                     b.HasKey("ResetDateId");
 
-                    b.HasIndex("SensorId")
-                        .IsUnique();
+                    b.HasIndex("SensorId");
 
                     b.ToTable("SensorResetDates");
                 });
@@ -238,8 +237,8 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
             modelBuilder.Entity("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorResetDateDto", b =>
                 {
                     b.HasOne("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorDto", "Sensor")
-                        .WithOne("ResetDate")
-                        .HasForeignKey("FarmAdvisor.DataAccess.MSSQL.Dtos.SensorResetDateDto", "SensorId")
+                        .WithMany("ResetDate")
+                        .HasForeignKey("SensorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

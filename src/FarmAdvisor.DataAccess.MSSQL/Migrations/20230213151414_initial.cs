@@ -153,8 +153,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_SensorResetDates_SensorId",
                 table: "SensorResetDates",
-                column: "SensorId",
-                unique: true);
+                column: "SensorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sensors_FeildId",
