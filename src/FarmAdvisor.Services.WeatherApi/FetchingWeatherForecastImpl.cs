@@ -135,7 +135,6 @@ namespace FarmAdvisor.Services.WeatherApi
         {
             double totalGdd = gddForecastOfEachDay.Values.Sum();
             double averageGdd = totalGdd / gddForecastOfEachDay.Count;
-
             return Convert.ToInt32(averageGdd);
         }
 
