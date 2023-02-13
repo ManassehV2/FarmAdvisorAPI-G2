@@ -21,6 +21,7 @@ namespace FarmAdvisor.Business{
                 user!.Farm = farmDto;
                 await _unitOfWork.UserRepository.UpdateAsync(user);
                 await _unitOfWork.FarmRepository.AddAsync(farmDto);
+                _unitOfWork.SaveChanges();
                 var createdFarm = await _unitOfWork.FarmRepository.GetByIdAsync(farmDto.FarmId);
                 var newFarm =  new Farm(createdFarm.FarmId, createdFarm.Name, createdFarm.LatitudeNum, createdFarm.LongitudeNum, createdFarm.User.UserId);
                 

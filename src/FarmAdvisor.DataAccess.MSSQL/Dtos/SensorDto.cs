@@ -33,6 +33,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
         public DateTime? LastForecastDate { get; set; }
         public double Long { get; set; }
         public double Lat { get; set; }
+        public int CurrentGDD { get; set; }
 
         // Navigation Properties        
         [ForeignKey("Feild")]

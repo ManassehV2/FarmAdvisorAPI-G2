@@ -58,14 +58,23 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<double>("Altitude")
                         .HasColumnType("float");
 
+                    b.Property<int>("CurrentGDD")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CuttingDateEstimated")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("FarmId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("GDDGoal")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LastSensorResetDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Polygon")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FieldId");
@@ -109,6 +118,9 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<int?>("BatteryStatus")
                         .HasColumnType("int");
 
+                    b.Property<int>("CurrentGDD")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("CuttingDateCaclculated")
                         .HasColumnType("datetime2");
 
@@ -118,7 +130,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                     b.Property<DateTime>("LastCommunication")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("LastCuttingDate")
+                    b.Property<DateTime>("LastCuttingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("LastForecastDate")
@@ -134,6 +146,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SerialNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SensorId");

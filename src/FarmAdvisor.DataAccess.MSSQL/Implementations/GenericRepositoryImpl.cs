@@ -19,7 +19,6 @@ public class GenericRepositoryImpl<T> : IGenericRepository<T> where T : class
     {
         try{
         var result = _context.Set<T>().Add(entity);
-        _context.SaveChanges();
         return new ValueTask<T>(result.Entity);
         }
         catch (System.Exception e)
@@ -33,7 +32,6 @@ public class GenericRepositoryImpl<T> : IGenericRepository<T> where T : class
     {
         try{
         var result = _context.Set<T>().Remove(entity);
-        _context.SaveChanges();
         return new ValueTask<T?>(result.Entity);
         }
         catch (System.Exception e)
@@ -75,7 +73,6 @@ public class GenericRepositoryImpl<T> : IGenericRepository<T> where T : class
     {
         try{
         var result = _context.Set<T>().Update(entity);
-        _context.SaveChanges();
         return new ValueTask<T?>(result.Entity);
         }
         catch (System.Exception e)
