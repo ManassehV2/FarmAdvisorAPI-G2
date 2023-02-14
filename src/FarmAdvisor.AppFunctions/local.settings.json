@@ -1,6 +1,6 @@
 {
   "connectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=farmApi;User Id=sa;Password=Eyob@10541797;Encrypt=False;"
+    "DefaultConnection": "Data Source=LAPTOP-EFKNA8TM\\SQLEXPRESS;Initial Catalog=farmAdvisor;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False"
   },
     "IsEncrypted": false,
     "Values": {

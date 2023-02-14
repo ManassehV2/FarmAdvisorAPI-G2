@@ -88,5 +88,51 @@ namespace FarmAdvisor.Business{
                 throw e;
             }
         }
+
+
+        // sensor reset by sensor Id
+       public async ValueTask<ResetSensorDateModel> ResetSensor(Guid sensorId, DateTime newDate)
+
+             {
+                 try
+                 {   
+                     var newSensor = await _unitOfWork.SensorRepository.GetByIdAsync(sensorId);
+                     var sensorResetDate = new SensorResetDateDto(new Guid(), newDate, sensorId);
+                     await _unitOfWork.SensorResetDateRepository.AddAsync(sensorResetDate);
+                     newSensor.LastCuttingDate = newDate;
+                     Console.WriteLine("creating sensor");
+                     var resetedSensorDate = new ResetSensorDateModel(newDate);
+                     //_unitOfWork.SaveChanges();
+                  
+                     return resetedSensorDate;
+                 }
+                 catch (Exception ex)
+                 {
+                     throw ex;
+                 }
+             }
+
+        // get field by farm id
+        public async ValueTask<IEnumerable<ResetSensorDateModel>> GetPerviousSensorReset(Guid sensorId)
+        {
+            try
+            {
+                var resetDatesDtos = await _unitOfWork.SensorResetDateRepository.GetSensorResetDateById(sensorId);
+                
+                var resetDates = resetDatesDtos.Select(
+                    resetDatesDto => new ResetSensorDateModel(
+                        resetDatesDto.TimeStamp
+                        ));
+
+                return resetDates;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+
     }
 }
