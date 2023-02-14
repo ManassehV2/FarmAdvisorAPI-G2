@@ -102,8 +102,6 @@ namespace FarmAdvisor.HttpFunctions.Functions
             }
         }
 
-
-
         [FunctionName("GetPreviousResetDateById")]
         [OpenApiOperation(operationId: "GetPreviousResetDateById", tags: new[] { "GetPreviousResetDateById" }, Summary = "Gets all Previous Reset Date By sensorId.", Description = "Gets all previous date by sensor Id.", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
