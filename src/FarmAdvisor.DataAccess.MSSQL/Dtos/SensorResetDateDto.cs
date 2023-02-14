@@ -5,6 +5,13 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
 {
     public class SensorResetDateDto
     {
+
+        public SensorResetDateDto(Guid sensorId,DateTime timeStamp)
+        {
+            ResetDateId = Guid.NewGuid();
+            TimeStamp = timeStamp;
+            SensorId = sensorId;
+        }
         [Key]
         public Guid ResetDateId { get; set; }
         public DateTime TimeStamp { get; set;}
