@@ -28,7 +28,7 @@ namespace FarmAdvisor.Business{
                 var newField = await _unitOfWork.FarmFeildRepository.AddAsync(farmFieldDto);
                 _unitOfWork.SaveChanges();
                 return new FarmFieldModel(
-                        newField.FarmId,
+                        newField.FieldId,
                         newField.Name,
                         (decimal)newField.Altitude,
                         newField.FarmId);
@@ -126,7 +126,45 @@ namespace FarmAdvisor.Business{
                 throw e;
             }
         }
-
+        public async ValueTask<FarmFieldModel> ResetAllSensors(Guid fieldId, DateTime resetDate){
+            try
+            {
+                var farmFieldDto = await _unitOfWork.FarmFeildRepository.GetByIdAsync(fieldId);
+                var fieldSensors = await _unitOfWork.SensorRepository.GetSensorByFieldId(fieldId);
+                farmFieldDto.LastSensorResetDate = resetDate;
+                await _unitOfWork.FarmFeildRepository.UpdateAsync(farmFieldDto);
+                List<SensorDto> sensors = fieldSensors.ToList();
+                Console.WriteLine($"___________sensor DTOs {sensors.Count} ------------");
         
+                for (int i=0; i < sensors.Count; i++)
+                {
+                    Console.WriteLine($"___________sensor DTO ------------");
+                    SensorDto sensorDto = sensors[i];
+                    Console.WriteLine($"___________sensor {sensorDto.LastCommunication}------------");
+                    var newSensor = await _unitOfWork.SensorRepository.GetByIdAsync(sensorDto.SensorId);
+                    
+                    var sensorResetDate = new SensorResetDateDto(new Guid(), resetDate, sensorDto.SensorId);
+                    await _unitOfWork.SensorResetDateRepository.AddAsync(sensorResetDate);
+                    
+                    newSensor.LastCuttingDate = resetDate;
+                   await _unitOfWork.SensorRepository.UpdateAsync(newSensor);
+                    Console.WriteLine($"___________sensor changed {newSensor.LastCuttingDate}------------");
+                    
+                    
+                }
+                
+                
+                var newFeild = new FarmFieldModel(
+                    fieldId, 
+                    farmFieldDto.Name, 
+                    (decimal)farmFieldDto.Altitude, 
+                    farmFieldDto.FarmId);
+                newFeild.LastSensorResetDate = farmFieldDto.LastSensorResetDate;
+                return newFeild;
+            }catch(Exception e){
+                throw e;
+            }
+        }
+
     }
 }

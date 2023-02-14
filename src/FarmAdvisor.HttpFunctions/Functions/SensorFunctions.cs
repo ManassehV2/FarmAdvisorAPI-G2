@@ -78,7 +78,6 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 return new BadRequestObjectResult(ex.Message);
             }
         }
-
-
+        
     }
 }
