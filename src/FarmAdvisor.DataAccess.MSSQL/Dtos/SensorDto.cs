@@ -39,6 +39,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
         public FarmFieldDto? Feild { get; set; }
         public List<SensorResetDateDto?> ResetDate { get; set; }
         
+        
 
     }
 }
