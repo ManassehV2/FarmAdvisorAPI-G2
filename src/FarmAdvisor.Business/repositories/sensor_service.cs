@@ -102,7 +102,7 @@ namespace FarmAdvisor.Business{
                      newSensor.LastCuttingDate = newDate;
                      Console.WriteLine("creating sensor");
                      var resetedSensorDate = new ResetSensorDateModel(newDate);
-                     _unitOfWork.SaveChanges();
+                     //_unitOfWork.SaveChanges();
                   
                      return resetedSensorDate;
                  }
@@ -111,6 +111,28 @@ namespace FarmAdvisor.Business{
                      throw ex;
                  }
              }
+
+        // get field by farm id
+        public async ValueTask<IEnumerable<ResetSensorDateModel>> GetPerviousSensorReset(Guid sensorId)
+        {
+            try
+            {
+                var resetDatesDtos = await _unitOfWork.SensorResetDateRepository.GetSensorResetDateById(sensorId);
+                
+                var resetDates = resetDatesDtos.Select(
+                    resetDatesDto => new ResetSensorDateModel(
+                        resetDatesDto.TimeStamp
+                        ));
+
+                return resetDates;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
 
     }
 }

@@ -39,7 +39,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
         [ForeignKey("Feild")]
         public Guid FeildId { get; set; }
         public FarmFieldDto? Feild { get; set; }
-        public SensorResetDateDto? ResetDate { get; set; }
+        public List<SensorResetDateDto?> ResetDate { get; set; }
 
     }
 }
