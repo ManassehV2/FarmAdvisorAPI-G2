@@ -7,8 +7,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
     public class SensorDto
     {
 
-        
-
         public SensorDto(string serialNo,  double @long, double lat,int optimalGDD ,Guid feildId, DateTime lastCuttingDate, DateTime lastCommunication)
         {
             SensorId = new Guid();
