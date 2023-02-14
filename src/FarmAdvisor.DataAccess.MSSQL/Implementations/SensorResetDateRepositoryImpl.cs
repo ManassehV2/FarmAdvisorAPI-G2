@@ -1,4 +1,5 @@
 
+using FarmAdvisor.DataAccess.MSSQL;
 using FarmAdvisor.DataAccess.MSSQL.Abstractions;
 using FarmAdvisor.DataAccess.MSSQL.Dtos;
 
@@ -6,15 +7,31 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
 {
      public   class   SensorResetDateRepositoryImpl  : GenericRepositoryImpl<SensorResetDateDto>, ISensorResetDateRepository
     {
-        private readonly FarmAdvisorDbContext _context;
-         public   SensorResetDateRepositoryImpl (FarmAdvisorDbContext context) :  base (context)
+        public FarmAdvisorDbContext _context;
+
+        public SensorResetDateRepositoryImpl (FarmAdvisorDbContext context) :  base (context)
         {
             _context = context;
         }
 
-        public async ValueTask<SensorResetDateDto> GetSensorResetDateBySensorId(Guid id)
+        public async ValueTask<IEnumerable<SensorResetDateDto>> GetSensorResetDateById(Guid sensorId)
         {
-            return await _context.SensorResetDates.FindAsync(id);
+            try
+            {
+                var resetDates = _context.SensorResetDates.Where(d => d.SensorId == sensorId).ToList();
+                return resetDates;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
     }
 }
+
+
+
+
+// get farmField by farmId
+

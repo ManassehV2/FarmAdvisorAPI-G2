@@ -36,6 +36,7 @@ namespace FarmAdvisor.DataAccess.AzureTableStorage.Services
             var tableClient = await GetTableClient();
             return await tableClient.GetEntityAsync<AzureDataModel>(sensorId, date);
         }
+        
 
         // this is how you create and update an item in azure storage table
         // if you provide an existing Primary key ilt will update the value but if you provide a new one it will add it to the storage

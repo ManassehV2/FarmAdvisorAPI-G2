@@ -17,7 +17,7 @@ namespace FarmAdvisor.Services.WeatherApi
             _weatherRepository = weatherRepository;
         }
         
-        public async Task<List<SensorWeatherData>> SensorWeatherForecast(List<Sensor> sensors)
+        public async Task<List<SensorWeatherData>> SensorWeatherForecast(List<Sensor> sensors, double altitude)
         {
               List<SensorWeatherData> listOfSensorWeatherData = new List<SensorWeatherData>();
         
@@ -31,30 +31,25 @@ namespace FarmAdvisor.Services.WeatherApi
                 await _weatherRepository.GetForecastData(
                     sensor.Long,
                     sensor.Lat,
-                    10
+                     altitude
                 );
-            Console.WriteLine("-----------------------api response----------------");
-            Console.WriteLine(weatherForecastOfCurrentSensor);
-            
-            Dictionary<string, List<double>> temperaturesWithDatesOfCurrentSensor =
-                TemperatureWithDateFinder(weatherForecastOfCurrentSensor);
-            Console.WriteLine("-----------------------temperaturesWithDatesOfCurrentSensor----------------");
-            Console.WriteLine(temperaturesWithDatesOfCurrentSensor);
-            
-            Dictionary<string, double> gddOfEachDayOfCurrentSensor = GddOfEachDayCalculator(
-                temperaturesWithDatesOfCurrentSensor,
+
+            // "2023-02-01: [6.2,4.5, 12.8, 21.5, 23]"
+            Dictionary<string, List<double>> dateWithTemperature =
+                TemperatureWithDateMapper(weatherForecastOfCurrentSensor);
+
+            // "2023-02-01": 13
+            Dictionary<string, double> dataWithGdd = GddOfEachDayCalculator(
+                dateWithTemperature,
                 baseTemperature
             );
-            Console.WriteLine("-----------------------gddOfEachDayOfCurrentSensor----------------");
-            Console.WriteLine(gddOfEachDayOfCurrentSensor);
             
+            // "2023-02-01: 16.7
             Dictionary<string, double> averageTemperatureOfCurrentSensor =
-                AverageTemperatureOfEachSensor(temperaturesWithDatesOfCurrentSensor);
-            Console.WriteLine("-----------------------averageTemperatureOfCurrentSensor----------------");
-            Console.WriteLine(averageTemperatureOfCurrentSensor);
-            
+                AverageTemperatureOfEachSensor(dateWithTemperature);
+
             curSensorWeatherData.SensorId = (Guid)sensor.SensorId;
-            curSensorWeatherData.ForecastGDD = gddOfEachDayOfCurrentSensor;
+            curSensorWeatherData.ForecastGDD = dataWithGdd;
             curSensorWeatherData.ForecastTemperature = averageTemperatureOfCurrentSensor;
         
             listOfSensorWeatherData.Add(curSensorWeatherData);
@@ -63,7 +58,7 @@ namespace FarmAdvisor.Services.WeatherApi
         return listOfSensorWeatherData;
         }
 
-        public Dictionary<string, List<double>> TemperatureWithDateFinder(
+        public Dictionary<string, List<double>> TemperatureWithDateMapper(
             WeatherForecastModel weather
         )
         {
@@ -77,15 +72,15 @@ namespace FarmAdvisor.Services.WeatherApi
                 var year = time.Year.ToString();
                 var month = time.Month.ToString();
                 var daily = time.Day.ToString();
-                var day = year + "-" + month + "-" + daily;
-                if (temperatureWithDate.ContainsKey(day))
+                var date = year + "-" + month + "-" + daily;
+                if (temperatureWithDate.ContainsKey(date))
                 {
-                    temperatureWithDate[day].Add(todayTemperature);
+                    temperatureWithDate[date].Add(todayTemperature);
                 }
                 else
                 {
-                    temperatureWithDate.Add(day, new List<double>());
-                    temperatureWithDate[day].Add(todayTemperature);
+                    temperatureWithDate.Add(date, new List<double>());
+                    temperatureWithDate[date].Add(todayTemperature);
                 }
             }
             return temperatureWithDate;
