@@ -31,9 +31,13 @@ namespace FarmAdvisor.HttpFunctions.Functions
         public async Task<IActionResult> CreateUser(
              [HttpTrigger(AuthorizationLevel.Function, "post", Route = "users")] HttpRequest req)
         {
+            try{
                 var user = new User(null , req.Form["phone"]);
                 var result = await _userService.CreateUser(user);
                 return new OkObjectResult(result);
+            } catch(Exception ex){
+                return new BadRequestObjectResult(ex.Message);
+            }
 
         }
 

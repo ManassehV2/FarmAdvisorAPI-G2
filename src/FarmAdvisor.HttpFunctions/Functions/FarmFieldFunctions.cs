@@ -48,9 +48,6 @@ namespace FarmAdvisor.HttpFunctions.Functions
         )
         {
 
-
-            Console.WriteLine("_______________________response is__________");
-            
             List<Sensor> sensors= new List<Sensor>();
             foreach(var i in Enumerable.Range(1,10))
             {
@@ -99,9 +96,13 @@ namespace FarmAdvisor.HttpFunctions.Functions
         public async Task<IActionResult> CreateFarmField(
              [HttpTrigger(AuthorizationLevel.Function, "post", Route = "farmFields")] HttpRequest req)
         {
+            try{
                 var farmField = new FarmFieldModel(null, req.Form["name"], decimal.Parse(req.Form["altitude"]), new Guid(req.Form["farmId"]));
                 var result = await _farmFieldService.CreateFarmField(farmField);
                 return new OkObjectResult(result);
+            }catch(Exception ex){
+                return new BadRequestObjectResult(ex.Message);
+            }
         }
         //
         [FunctionName("GetFarmFieldsByFarmId")]
