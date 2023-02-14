@@ -39,7 +39,6 @@ namespace FarmAdvisor.Business{
                 newSensor.LastCommunication
 
                 );
-             
             
         }catch(Exception e){
             throw e;
