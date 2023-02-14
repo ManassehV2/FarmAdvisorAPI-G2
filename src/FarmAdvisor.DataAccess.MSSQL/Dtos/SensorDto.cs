@@ -7,8 +7,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
     public class SensorDto
     {
 
-        
-
         public SensorDto(string serialNo,  double @long, double lat,int optimalGDD ,Guid feildId, DateTime lastCuttingDate, DateTime lastCommunication)
         {
             SensorId = new Guid();
@@ -40,6 +38,7 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
         public Guid FeildId { get; set; }
         public FarmFieldDto? Feild { get; set; }
         public List<SensorResetDateDto?> ResetDate { get; set; }
+        
         
 
     }

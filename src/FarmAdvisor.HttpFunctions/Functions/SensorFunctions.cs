@@ -63,6 +63,7 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 }
         }
 
+
         [FunctionName("GetSensorById")]
         [OpenApiOperation(operationId: "SensorById", tags: new[] { "SensorById" }, Summary = "SensorById", Description = "SensorById", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
@@ -78,6 +79,7 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 return new BadRequestObjectResult(ex.Message);
             }
         }
+
 
 
         [FunctionName("ResetSensorDate")]
@@ -101,8 +103,6 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 return new BadRequestObjectResult(ex.Message);
             }
         }
-
-
 
         [FunctionName("GetPreviousResetDateById")]
         [OpenApiOperation(operationId: "GetPreviousResetDateById", tags: new[] { "GetPreviousResetDateById" }, Summary = "Gets all Previous Reset Date By sensorId.", Description = "Gets all previous date by sensor Id.", Visibility = OpenApiVisibilityType.Important)]
