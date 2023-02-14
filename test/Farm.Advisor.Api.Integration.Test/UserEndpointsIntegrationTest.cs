@@ -1,20 +1,31 @@
 using System.Net;
-using FluentAssertions;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace FarmAdvisorApiIntegrationTest
 {
-    public class UserEndpointesIntegrationTest
+    [Collection("TestServerCollection")]
+    public class FunctionIntegrationTest
     {
-        [Fact]
-        public async Task GetUsersEndpoint()
-        {
-            using(var client = new ClientProvider()._client)
-            {
-                var response = await client.GetAsync("/api/users");
-                response.EnsureSuccessStatusCode();
-                response.StatusCode.Should().Be(HttpStatusCode.OK);
-            }
+        private HttpClient _client;
+        private readonly TestServerFixture _fixture;
 
+        public FunctionIntegrationTest(TestServerFixture fixture)
+        {
+            _client = fixture.Client;
+        }
+
+        [Fact]
+        public async Task TestFunction()
+        {
+            // Arrange
+
+            // Act
+            var response = await _client.GetAsync("/api/users");
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            // Add more assertions as needed
         }
     }
 }
