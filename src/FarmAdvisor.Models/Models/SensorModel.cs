@@ -30,6 +30,7 @@ namespace FarmAdvisor.Models.Models
         public double Lat { get; set; }
         public Guid FieldId { get; set; }
         public DateTime LastCuttingDate { get; set; }
+        public int CurrentGDD { get; set; } = 0;
 
     }
 

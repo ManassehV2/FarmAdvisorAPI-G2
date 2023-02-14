@@ -19,11 +19,11 @@ namespace FarmAdvisor.HttpFunctions.Functions
 {
     public class FarmFunctions
     {
-        private FarmService _farmService;
+        private readonly FarmService _farmService    ;
 
-        public FarmFunctions( )
+        public FarmFunctions( FarmService farmService)
         {
-            _farmService = new FarmService(new UnitOfWorkImpl());
+            _farmService = farmService;
         }
         
         [FunctionName("GetAllFarms")]

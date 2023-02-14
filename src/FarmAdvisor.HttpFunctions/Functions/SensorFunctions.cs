@@ -19,11 +19,11 @@ namespace FarmAdvisor.HttpFunctions.Functions
 {
     public class SensorFunctions
     {
-        private SensorService _sensorService;
+        private readonly SensorService _sensorService;
 
-        public SensorFunctions( )
+        public SensorFunctions(SensorService sensorService )
         {
-            _sensorService = new SensorService(new UnitOfWorkImpl());
+            _sensorService = sensorService;
         }
         
         [FunctionName("GetSensorsByFieldId")]
@@ -55,7 +55,9 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 try{
                     var sensor = new Sensor(null, req.Form["serialNo"], double.Parse(req.Form["longitude"]), double.Parse(req.Form["latitude"]), int.Parse(req.Form["defaultGDD"]), Guid.Parse(req.Form["fieldId"]), DateTime.Parse(req.Form["lastCuttingDate"]), DateTime.Parse(req.Form["lastCommunication"]));
                     var newSensor = _sensorService.CreateSensor(sensor);
+                    
                     return new OkObjectResult(newSensor);
+                    
                 }   catch(Exception ex){
                     return new BadRequestObjectResult(ex.Message);
                 }
@@ -76,7 +78,6 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 return new BadRequestObjectResult(ex.Message);
             }
         }
-
-
+        
     }
 }

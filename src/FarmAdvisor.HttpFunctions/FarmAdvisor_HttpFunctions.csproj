@@ -31,11 +31,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FarmAdvisor.Business\FarmAdvisor.Business.csproj" />
     <ProjectReference Include="..\FarmAdvisor.DataAccess.AzureTableStorage\FarmAdvisor.DataAccess.AzureTableStorage.csproj" />
     <ProjectReference Include="..\FarmAdvisor.Models\FarmAdvisor.Models.csproj" />
     <ProjectReference Include="..\FarmAdvisor.Services.WeatherApi\FarmAdvisor.Services.WeatherApi.csproj" />
-    <ProjectReference Include="..\FarmAdvisor.AppFunctions\FarmAdvisor_AppFunctions.csproj" />
-    <ProjectReference Include="..\FarmAdvisor.Business\FarmAdvisor.Business.csproj" />
     <ProjectReference Include="..\FarmAdvisor.DataAccess.MSSQL\FarmAdvisor.DataAccess.MSSQL.csproj" />
   </ItemGroup>
 </Project>

@@ -15,10 +15,12 @@ namespace FarmAdvisor.Business{
         //add farm
         public async ValueTask<Farm> AddFarm(Farm farm){
             try{
+
                 var user = await _unitOfWork.UserRepository.GetByIdAsync(farm.UserId);
                 var farmDto = new FarmDto(farm.Name, farm.Latitude, farm.Longitude);
-                user.Farm = farmDto;
+                user!.Farm = farmDto;
                 await _unitOfWork.FarmRepository.AddAsync(farmDto);
+                _unitOfWork.SaveChanges();
                 var createdFarm = await _unitOfWork.FarmRepository.GetByIdAsync(farmDto.FarmId);
                 var newFarm =  new Farm(createdFarm.FarmId, createdFarm.Name, createdFarm.LatitudeNum, createdFarm.LongitudeNum, createdFarm.User.UserId);
                 

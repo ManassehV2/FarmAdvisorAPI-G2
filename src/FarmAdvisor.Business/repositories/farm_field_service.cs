@@ -1,5 +1,6 @@
 using FarmAdvisor.DataAccess.MSSQL.Abstractions;
 using FarmAdvisor.DataAccess.MSSQL.Dtos;
+using FarmAdvisor.DataAccess.MSSQL.Implementations;
 using FarmAdvisor.Models.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,9 +8,10 @@ namespace FarmAdvisor.Business{
 
     public class FarmFieldService{
 
-        private readonly IUnitOfWork _unitOfWork;
+        private  readonly IUnitOfWork _unitOfWork;
 
-        public FarmFieldService(IUnitOfWork unitOfWork){
+        public FarmFieldService(IUnitOfWork unitOfWork)
+        {
             _unitOfWork = unitOfWork;
         }
 
@@ -17,11 +19,16 @@ namespace FarmAdvisor.Business{
         // create farm field
         public async ValueTask<FarmFieldModel> CreateFarmField(FarmFieldModel farmField){
             try{
+                // var farm = await _unitOfWork.FarmRepository.GetByIdAsync(farmField.FarmId);
                 var farmFieldDto = new FarmFieldDto(farmField.Name, ((double)farmField.Altitude), farmField.FarmId);
+                // if(farm.FarmFeilds == null)
+                //     farm.FarmFeilds = new List<FarmFieldDto>();
+                // farm.FarmFeilds.Add(farmFieldDto);
+                // await _unitOfWork.FarmRepository.UpdateAsync(farm);
                 var newField = await _unitOfWork.FarmFeildRepository.AddAsync(farmFieldDto);
                 _unitOfWork.SaveChanges();
                 return new FarmFieldModel(
-                        newField.FarmId,
+                        newField.FieldId,
                         newField.Name,
                         (decimal)newField.Altitude,
                         newField.FarmId);
@@ -119,7 +126,45 @@ namespace FarmAdvisor.Business{
                 throw e;
             }
         }
-
+        public async ValueTask<FarmFieldModel> ResetAllSensors(Guid fieldId, DateTime resetDate){
+            try
+            {
+                var farmFieldDto = await _unitOfWork.FarmFeildRepository.GetByIdAsync(fieldId);
+                var fieldSensors = await _unitOfWork.SensorRepository.GetSensorByFieldId(fieldId);
+                farmFieldDto.LastSensorResetDate = resetDate;
+                await _unitOfWork.FarmFeildRepository.UpdateAsync(farmFieldDto);
+                List<SensorDto> sensors = fieldSensors.ToList();
+                Console.WriteLine($"___________sensor DTOs {sensors.Count} ------------");
         
+                for (int i=0; i < sensors.Count; i++)
+                {
+                    Console.WriteLine($"___________sensor DTO ------------");
+                    SensorDto sensorDto = sensors[i];
+                    Console.WriteLine($"___________sensor {sensorDto.LastCommunication}------------");
+                    var newSensor = await _unitOfWork.SensorRepository.GetByIdAsync(sensorDto.SensorId);
+                    
+                    var sensorResetDate = new SensorResetDateDto(new Guid(), resetDate, sensorDto.SensorId);
+                    await _unitOfWork.SensorResetDateRepository.AddAsync(sensorResetDate);
+                    
+                    newSensor.LastCuttingDate = resetDate;
+                   await _unitOfWork.SensorRepository.UpdateAsync(newSensor);
+                    Console.WriteLine($"___________sensor changed {newSensor.LastCuttingDate}------------");
+                    
+                    
+                }
+                
+                
+                var newFeild = new FarmFieldModel(
+                    fieldId, 
+                    farmFieldDto.Name, 
+                    (decimal)farmFieldDto.Altitude, 
+                    farmFieldDto.FarmId);
+                newFeild.LastSensorResetDate = farmFieldDto.LastSensorResetDate;
+                return newFeild;
+            }catch(Exception e){
+                throw e;
+            }
+        }
+
     }
 }

@@ -21,6 +21,7 @@ namespace FarmAdvisor.DataAccess.AzureTableStorage.Services
 
         private async Task<TableClient> GetTableClient()
         {
+            
             var serviceClient = new TableServiceClient("AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;EndpointSuffix=core.windows.net");
             var tableclient = serviceClient.GetTableClient(TableName);
             await tableclient.CreateIfNotExistsAsync();
@@ -35,6 +36,7 @@ namespace FarmAdvisor.DataAccess.AzureTableStorage.Services
             var tableClient = await GetTableClient();
             return await tableClient.GetEntityAsync<AzureDataModel>(sensorId, date);
         }
+        
 
         // this is how you create and update an item in azure storage table
         // if you provide an existing Primary key ilt will update the value but if you provide a new one it will add it to the storage

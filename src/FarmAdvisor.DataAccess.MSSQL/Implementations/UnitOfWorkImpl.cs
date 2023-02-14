@@ -20,14 +20,15 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
 
         public ISensorResetDateRepository SensorResetDateRepository { get; private set; }
         
-         public   UnitOfWorkImpl ()
+         public   UnitOfWorkImpl (FarmAdvisorDbContext context)
         {
-            var  connectionString = "Data Source=LAPTOP-7S5M2IVT;Initial Catalog=FarmAdvisor1;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False";
+            // var  connectionString = "Data Source=LAPTOP-7S5M2IVT;Initial Catalog=FarmAdvisor1;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False";
+            //
+            // var options = new  DbContextOptionsBuilder<FarmAdvisorDbContext>()
+            //     .UseSqlServer( connectionString!, options => options.EnableRetryOnFailure())
+            //     .Options;
 
-            var options = new  DbContextOptionsBuilder<FarmAdvisorDbContext>()
-                .UseSqlServer( connectionString!, options => options.EnableRetryOnFailure())
-                .Options;
-            _context =  new  FarmAdvisorDbContext(options);
+            _context = context;
             FarmRepository =  new   FarmRepositoryImpl (_context);
             UserRepository =  new   UserRepositoryImpl (_context);
             SensorRepository =  new   SensorRepositoryImpl (_context);
