@@ -63,6 +63,7 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 }
         }
 
+
         [FunctionName("GetSensorById")]
         [OpenApiOperation(operationId: "SensorById", tags: new[] { "SensorById" }, Summary = "SensorById", Description = "SensorById", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
@@ -78,6 +79,7 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 return new BadRequestObjectResult(ex.Message);
             }
         }
+
 
 
         [FunctionName("ResetSensorDate")]
