@@ -1,0 +1,11 @@
+{
+    "connectionStrings": {
+      "DefaultConnection": "Data Source=LAPTOP-7S5M2IVT;Initial Catalog=FarmAdvisor1;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False"
+    },
+    "IsEncrypted": false,
+    "Values": {
+      "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+      "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+    }
+  }
+  
