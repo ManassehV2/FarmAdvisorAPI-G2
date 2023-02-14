@@ -6,8 +6,6 @@ namespace FarmAdvisor.DataAccess.MSSQL
     public class FarmAdvisorDbContext : DbContext, IFarmAdvisorDbContext
     {
     
-       
-
         public FarmAdvisorDbContext(DbContextOptions<FarmAdvisorDbContext> options) : base(options)
         {
             
