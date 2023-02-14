@@ -2,6 +2,7 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using System.Net.Http;
 using FarmAdvisor.Business;
 using FarmAdvisor.DataAccess.AzureTableStorage.Services;
@@ -52,6 +53,7 @@ namespace FarmAdvisor.HttpFunctions
             services.AddScoped<FarmService>();
             services.AddScoped<UserService>();
             services.AddScoped<SensorService>();
+            services.AddScoped<DashboardService>();
 
         }
 

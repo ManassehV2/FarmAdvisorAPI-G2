@@ -52,23 +52,20 @@ namespace FarmAdvisor.HttpFunctions.Functions
             Console.WriteLine("_______________________response is__________");
             
             List<Sensor> sensors= new List<Sensor>();
-            foreach(var i in Enumerable.Range(1,10))
-            {
-                var sensor = new Sensor(
-                    Guid.NewGuid(),
-                    String.Format("serial{0}", i.ToString()),
-                   38 + i / 10,
-                     8.5 + i / 10,
-                     300 + i,
-                    Guid.NewGuid(),
-                     DateTime.Now,
-                     DateTime.Now
-                    
-                );
-                sensors.Add(sensor);
-            }
+
+            var sensor = new Sensor(
+                new Guid("c97582a7-11b9-4c45-7349-08db0dfb1b92"),
+                "qwertyuiop12",
+                38 + 1 / 10,
+                8.5 + 1 / 10,
+                300 + 1,
+                new Guid("3cf5bb7b-7ec6-438a-ac07-051aca8c6faa"),
+                DateTime.Now,
+                DateTime.Now);
+            sensors.Add(sensor);
             
-            var res = await _weatherForecast.SensorWeatherForecast(sensors);
+            
+            var res = await _weatherForecast.SensorWeatherForecast(sensors, 12);
             foreach (var kvp in res)
             {
                 foreach (var val in kvp.ForecastGDD)
@@ -119,7 +116,38 @@ namespace FarmAdvisor.HttpFunctions.Functions
                 return new BadRequestObjectResult(ex.Message);
             }
         }
-
+        
+        [FunctionName("DeleteFarmFieldsByFarmId")]
+        [OpenApiOperation(operationId: "DeleteFarmField", tags: new[] { "FarmFields" }, Summary = "Gets all fields in a farm.", Description = "Gets all fields in a farm.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(FarmFieldModel), Description = "List of fields in a farm")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid ID supplied", Description = "Invalid ID supplied")]
+        public async Task<IActionResult> DeleteFarmFieldsByFarmId(
+            [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "farms/farmFields/{farmId}")] HttpRequest req, Guid farmId)
+        {
+            try{
+                var result = await _farmFieldService.DeleteFarmField(farmId);
+                return new OkObjectResult(result);
+            }catch(Exception ex){
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
+        
+        [FunctionName("ResetAllSensorsOfAField")]
+        [OpenApiOperation(operationId: "ResetAllSensors", tags: new[] { "FarmFields" }, Summary = "Gets all fields in a farm.", Description = "Gets all fields in a farm.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Header)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(FarmFieldModel), Description = "List of fields in a farm")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Summary = "Invalid ID supplied", Description = "Invalid ID supplied")]
+        public async Task<IActionResult> ResetAllSensorsOfAField(
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "farms/farmFields/reset/{fieldId}")] HttpRequest req, Guid fieldId)
+        {
+            try{
+                var result = await _farmFieldService.ResetAllSensors(fieldId, DateTime.Parse(req.Form["resetDate"]));
+                return new OkObjectResult(result);
+            }catch(Exception ex){
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
 
     }
 }

@@ -20,10 +20,6 @@ namespace FarmAdvisor.DataAccess.MSSQL.Dtos
 
         [ForeignKey("SensorDto")]
         public Guid SensorId { get; set; }
-        public SensorDto? Sensor { get; set; }
-
-
-        
         
     }
 }
