@@ -19,11 +19,12 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         {
             
             Utils.clearDatabase(UnitOfWork);
+            var id = Guid.NewGuid();
             var user = new UserDto("0920394839");
             var farm = new FarmDto("farmName", 8,30);
             var farmFeild = new FarmFieldDto("farmFeildName", 89, farm.FarmId);
             var sensor = new SensorDto("serialNo", 89,89,400, farmFeild.FieldId, DateTime.Now, DateTime.Now);
-            var sensorResetDate = new SensorResetDateDto(sensor.SensorId, DateTime.Now);
+            var sensorResetDate = new SensorResetDateDto(id,  DateTime.Now, sensor.SensorId);
             await UnitOfWork.SensorResetDateRepository.AddAsync(sensorResetDate);
             var result = await UnitOfWork.SensorResetDateRepository.GetByIdAsync(sensorResetDate.ResetDateId);
             
@@ -40,11 +41,12 @@ namespace FarmAdvisor.DataAccess.MSSQL.Test
         {
             
             Utils.clearDatabase(UnitOfWork);
+            var id = Guid.NewGuid();
             var user = new UserDto("0920394839");
             var farm = new FarmDto("farmName", 8,30);
             var farmFeild = new FarmFieldDto("farmFeildName", 89, farm.FarmId);
             var sensor = new SensorDto("serialNo", 89,89,400, farmFeild.FieldId, DateTime.Now, DateTime.Now);
-            var sensorResetDate = new SensorResetDateDto(sensor.SensorId, DateTime.Now);
+            var sensorResetDate = new SensorResetDateDto(id, DateTime.Now, sensor.SensorId);
             await UnitOfWork.SensorResetDateRepository.AddAsync(sensorResetDate);
             UnitOfWork.SaveChanges();
             var result = await UnitOfWork.SensorResetDateRepository.GetByIdAsync(sensorResetDate.ResetDateId);
