@@ -19,7 +19,7 @@ namespace FarmAdvisor.HttpFunctions.Functions
 {
     public class FarmFunctions
     {
-        private readonly FarmService _farmService    ;
+        private readonly FarmService _farmService  ;
 
         public FarmFunctions( FarmService farmService)
         {
@@ -34,9 +34,12 @@ namespace FarmAdvisor.HttpFunctions.Functions
         public async Task<IActionResult> GetAllFarms(
              [HttpTrigger(AuthorizationLevel.Function, "get", Route = "farms")] HttpRequest req)
         {
-
+            try{
                 var result = await _farmService.GetAllFarms();
                 return new OkObjectResult(result);
+            }catch(Exception ex){
+                return new BadRequestObjectResult(ex.Message);
+            }
 
         }
 
@@ -48,9 +51,13 @@ namespace FarmAdvisor.HttpFunctions.Functions
         public async Task<IActionResult> CreateFarm(
              [HttpTrigger(AuthorizationLevel.Function, "post", Route = "farms")] HttpRequest req)
         {
+            try{
                 var farm = new Farm(null, req.Form["name"], double.Parse(req.Form["latitude"]), double.Parse(req.Form["longitude"]), Guid.Parse(req.Form["userId"]));
                 var result = await _farmService.AddFarm(farm);
                 return new OkObjectResult(result);
+            }catch(Exception ex){
+                return new BadRequestObjectResult(ex.Message);
+            }
 
         }
 
