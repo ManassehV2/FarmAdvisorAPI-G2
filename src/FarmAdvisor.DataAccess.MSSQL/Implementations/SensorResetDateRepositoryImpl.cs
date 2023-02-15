@@ -33,5 +33,3 @@ namespace  FarmAdvisor.DataAccess.MSSQL.Implementations
 
 
 
-// get farmField by farmId
-
